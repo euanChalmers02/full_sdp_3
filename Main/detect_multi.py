@@ -282,6 +282,7 @@ def parse_opt():
 
 
 def main(opt):
+    print('hello world')
     add_log("The main function has started :)")
     check_requirements(exclude=('tensorboard', 'thop'))
     run(**vars(opt))
