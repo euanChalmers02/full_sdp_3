@@ -7,6 +7,8 @@ PATH = os.path.abspath(__file__)
 ROOT = (PATH.split("fnd"))
 MSG_CACHE_PATH = ROOT[0] + "fnd/recorded_msg"
 
+CACHE_JSON_FILE = ROOT[0] + "fnd/recorded_msg/database"
+
 def save_msg_to_cache(input_text, file_name):
     if 'wav' not in file_name:
         file_name = file_name + '.wav'
