@@ -1,7 +1,8 @@
 import queue
 
-from fnd.Sound.SoundSys.TextToSpeech import *
-from fnd.Sound.Logging import *
+from Main.fnd.Sound.SoundSys.TextToSpeech import *
+from Main.fnd.Sound.Logging import *
+from Main.fnd.Sound.SoundSys.VoiceToText import *
 
 class ThreadingState:
     def __init__(self):
@@ -12,6 +13,7 @@ class ThreadingState:
         self.current_object = None
         self.quit = False
         self.all_objects = []
+        self.voice = False
 
     def str_print(self):
         print('Stop', self.stop)
@@ -35,13 +37,17 @@ def console():
         cmd_queue.put(cmd)
         action = BUTTONS_TO_COMMANDS.get(cmd, invalid_input)
         action()
-        # print('the curr state ', state.str_print())
+        print('the curr state ', state.str_print())
         print('the next func to use is ', check_next_func())
 
 
 # Calling
 def invalid_input():
     print('---> Unknown command')
+
+
+def voice():
+    state.voice = True
 
 
 def pause():
@@ -73,8 +79,6 @@ def read_out_full():
     return
 
 
-# Actions
-
 def pause_wait_action():
     while check_next_func() is pause_wait_action:
         time.sleep(1)
@@ -95,7 +99,7 @@ def quit_action():
 
 
 cmd_queue = queue.Queue()
-BUTTONS_TO_COMMANDS = {'p': pause, 'm': read_out_full, 'r': resume, 'q': quit}
+BUTTONS_TO_COMMANDS = {'p': pause, 'm': read_out_full, 'r': resume, 'q': quit, 'v': voice}
 
 
 def check_next_func():
@@ -105,6 +109,8 @@ def check_next_func():
         return read_out_full_action
     elif state.quit:
         return quit_action
+    elif state.voice:
+        return voice_wrapper_button
     else:
         return None
 
