@@ -1,5 +1,6 @@
 import speech_recognition as sr
-from Main.fnd.Sound.SoundSys.TextToSpeech import *
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
+
 
 # on button press start listening and return command
 def listen():
@@ -44,4 +45,3 @@ def voice_wrapper():
         return None
     else:
         return parse(res)
-

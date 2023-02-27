@@ -10,3 +10,6 @@ class sound_sys_tests(unittest.TestCase):
 
     def test_play_msg_cache(self):
         play_msg_cache('Lifts.wav')
+
+if __name__ == '__main__':
+    unittest.main()

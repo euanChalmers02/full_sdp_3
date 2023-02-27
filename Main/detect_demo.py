@@ -37,9 +37,9 @@ import numpy as np
 import threading
 
 # sort the directories names
-from fnd.Sound.SoundSys.Sound import Sound
-from fnd.Sound.SoundSys.SoundWrapper import *
-from fnd.Sound.Logging import *
+from fnd.SoundCode.SoundSys.Sound import Sound
+from fnd.SoundCode.SoundSys.SoundWrapper import *
+from fnd.SoundCode.Logging import *
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory

@@ -1,11 +1,9 @@
-import os.path
-
 import numpy as np
 
-# customisable
-# TO
+# -- customisable --
 scale_factor = 1
 incremt = 1
+
 
 # static helper function
 def closest_value_index(input_list, input_value):
@@ -17,12 +15,26 @@ def closest_value_index(input_list, input_value):
 class Setup:
     def __init__(self, DEFAULT_CAMERA_WIDTH, DEFAULT_CAMERA_HEIGHT, DEFAULT_FIELD_OF_VIEW_WIDTH,
                  DEFAULT_FIELD_OF_VIEW_HEIGHT):
+        self.DEFAULT_CAMERA_WIDTH = DEFAULT_CAMERA_WIDTH
+        self.DEFAULT_CAMERA_HEIGHT = DEFAULT_CAMERA_HEIGHT
+        self.DEFAULT_FIELD_OF_VIEW_WIDTH = DEFAULT_FIELD_OF_VIEW_WIDTH
+        self.DEFAULT_FIELD_OF_VIEW_HEIGHT = DEFAULT_FIELD_OF_VIEW_HEIGHT
 
         self.all_angles_hoz = []
         self.all_angle_ver = []
 
-        width_fov_scaled = (DEFAULT_FIELD_OF_VIEW_WIDTH / 2) * scale_factor
-        height_fov_scaled = (DEFAULT_FIELD_OF_VIEW_HEIGHT / 2) * scale_factor
+        self.pixels_h = []
+        self.pixels_v = []
+
+        # private methods
+        self.__compute_elev_vals()
+        self.__compute_horizontal_vals()
+
+    # creates array for all elevation (vertical angle) values
+    def __compute_elev_vals(self):
+
+        width_fov_scaled = (self.DEFAULT_FIELD_OF_VIEW_WIDTH / 2) * scale_factor
+        height_fov_scaled = (self.DEFAULT_FIELD_OF_VIEW_HEIGHT / 2) * scale_factor
 
         x = 0
         self.all_angles_hoz.append(x)
@@ -56,46 +68,27 @@ class Setup:
             counter = counter + 1
             self.all_angle_ver.append(ele_list_neg[counter])
 
-        print('vertical', self.all_angle_ver)
+    # creates array for all horizontal angle values
+    def __compute_horizontal_vals(self):
+        split_h = self.DEFAULT_CAMERA_WIDTH / len(self.all_angles_hoz)
+        split_v = self.DEFAULT_CAMERA_HEIGHT / len(self.all_angle_ver)
 
-        #
-        # x = 0
-        # self.all_angle_ver.append(x)
-        # while x < height_fov_scaled:
-        #     x = x + incremt
-        #     self.all_angle_ver.append(x)
-        #
-        # self.all_angle_ver.sort(reverse=True)
-        #
-        # part2 = []
-        #
-        # x = 345
-        # part2.append(x)
-        # while x > 345 - height_fov_scaled:
-        #     x = x - incremt
-        #     part2.append(x)
-        #
-        # part2.sort()
-        # self.all_angle_ver = self.all_angle_ver + part2
 
-        split_h = DEFAULT_CAMERA_WIDTH / len(self.all_angles_hoz)
-        split_v = DEFAULT_CAMERA_HEIGHT / len(self.all_angle_ver)
-
-        self.pixels_h = []
         counter_h = 0
         for y in range(len(self.all_angles_hoz)):
             self.pixels_h.append(round(counter_h))
             counter_h = counter_h + split_h
 
-        self.pixels_v = []
+
         counter_v = 0
         for y in range(len(self.all_angle_ver)):
             self.pixels_v.append(round(counter_v))
             counter_v = counter_v + split_v
 
-        print(self.all_angle_ver)
-        print(self.all_angles_hoz)
+        # print(self.all_angle_ver)
+        # print(self.all_angles_hoz)
 
+    # find closest values for horizontal and vertical angles
     def find_the_file_two(self, coord):
         index_h = closest_value_index(self.pixels_h, coord[0])
         index_v = closest_value_index(self.pixels_v, coord[1])

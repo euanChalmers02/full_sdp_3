@@ -1,8 +1,8 @@
 import json
 from os import walk
-from Main.fnd.Sound.SoundSys.TextToSpeech import *
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
 # from Logging import *
-from Main.fnd.Sound.SoundSys.VoiceToText import listen
+from Main.fnd.SoundCode.SoundSys.VoiceToText import listen
 
 engine = pyttsx3.init()
 

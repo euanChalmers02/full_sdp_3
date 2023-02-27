@@ -37,9 +37,9 @@ import numpy as np
 import threading
 
 # sort the directories names
-from fnd.Sound.SoundSys.Sound import Sound
-from fnd.Sound.SoundSys.SoundWrapper import *
-from fnd.Sound.Logging import *
+from fnd.SoundCode.SoundSys.Sound import Sound
+from fnd.SoundCode.SoundSys.SoundWrapper import *
+from fnd.SoundCode.Logging import *
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -196,6 +196,7 @@ def run(
                     o = Sound(centre_of_mass, 0, names[int(c)], True)
                     arr_sounds.append(o)
 
+                    # check if sound is playing, if not, start
                     if thread2.is_alive() != True:
                         # add_log("Thread2 started @   " + str(o))
                         thread2 = threading.Thread(target=sound_action, args=(o, arr_sounds))

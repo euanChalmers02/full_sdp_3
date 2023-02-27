@@ -1,7 +1,7 @@
 import queue
 
-from fnd.Sound.SoundSys.TextToSpeech import *
-from fnd.Sound.Logging import *
+from fnd.SoundCode.SoundSys.TextToSpeech import *
+from fnd.SoundCode.Logging import *
 
 class ThreadingState:
     def __init__(self):

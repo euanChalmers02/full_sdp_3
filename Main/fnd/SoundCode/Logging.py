@@ -3,7 +3,7 @@ import os
 
 PATH = os.path.abspath(__file__)
 ROOT = (PATH.split("fnd"))
-ROOT = ROOT[0] + "fnd/" + "Sound/logs"
+ROOT = ROOT[0] + "fnd/" + "SoundCode/logs"
 
 LOG_FILES = os.listdir(ROOT)
 num_of_log_files = (len(LOG_FILES))
