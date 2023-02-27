@@ -1,7 +1,7 @@
 import json
 from os import walk
 from Main.fnd.Sound.SoundSys.TextToSpeech import *
-from Logging import *
+# from Logging import *
 from Main.fnd.Sound.SoundSys.VoiceToText import listen
 
 engine = pyttsx3.init()
@@ -40,7 +40,7 @@ def update_num_beeps(ind):
 def select_an_option():
     res = listen()
     if "quit" in res:
-        add_log("VOICE COMMAND,FAIL," + res)
+        # add_log("VOICE COMMAND,FAIL," + res)
         play_msg_cache('Quitting')
         return None
     else:
@@ -50,15 +50,15 @@ def select_an_option():
 
         rez = listen()
         if "yes" in rez:
-            add_log("VOICE COMMAND,Success," + res)
+            # add_log("VOICE COMMAND,Success," + res)
             play_msg_cache('Great_Updating_Now')
             return res
         elif "quit" in rez or "no" in rez:
-            add_log("VOICE COMMAND,FAIL," + res)
+            # add_log("VOICE COMMAND,FAIL," + res)
             play_msg_cache('Quitting')
             return None
         else:
-            add_log("VOICE COMMAND,FAIL," + res)
+            # add_log("VOICE COMMAND,FAIL," + res)
             play_msg_cache('say_again')
             select_an_option()
 
@@ -81,7 +81,10 @@ def cycle_voices():
 
 def cycle_beeps():
     #    need to change once in main program
-    mypath = '/Users/euanchalmers/Desktop/SDP/yolov5/fnd/beeps'
+    PATH = os.path.abspath(__file__)
+    ROOT = (PATH.split("fnd"))
+    mypath = ROOT[0] + "fnd/beeps"
+    print(mypath)
 
     f = []
     for (dirpath, dirnames, filenames) in walk(mypath):

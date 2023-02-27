@@ -18,6 +18,7 @@ def sound_action(snd,arr_sounds):
     print('button status', check_next_func())
     update_object(snd)
 
+    # check for if pause while beeping
     if check_next_func() is None:
         o = snd
         print(o.get_name())

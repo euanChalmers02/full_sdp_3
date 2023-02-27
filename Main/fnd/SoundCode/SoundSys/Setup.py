@@ -1,5 +1,9 @@
+import os.path
+
 import numpy as np
 
+# customisable
+# TO
 scale_factor = 1
 incremt = 1
 

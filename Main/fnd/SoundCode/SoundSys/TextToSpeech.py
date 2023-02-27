@@ -4,11 +4,11 @@ import sounddevice as sd
 import os
 
 PATH = os.path.abspath(__file__)
-ROOT = (PATH.split("fnd"))
-MSG_CACHE_PATH = ROOT[0] + "fnd/recorded_msg"
+ROOT = PATH.split("Main")
+MSG_CACHE_PATH = ROOT[0] + "Main/fnd/recorded_msg"
+CACHE_JSON_FILE = ROOT[0] + "Main/fnd/recorded_msg/database"
 
-CACHE_JSON_FILE = ROOT[0] + "fnd/recorded_msg/database"
-
+# Saves a recording of machine-spoken text to cache for quicker playback.
 def save_msg_to_cache(input_text, file_name):
     if 'wav' not in file_name:
         file_name = file_name + '.wav'
@@ -18,18 +18,15 @@ def save_msg_to_cache(input_text, file_name):
     engine.save_to_file(input_text, str(MSG_CACHE_PATH + "/" + file_name))
     engine.runAndWait()
 
-
+# plays text-to-speech recording
 def play_msg_cache(file_name):
     if '.wav' not in file_name:
-        file_name = file_name+'.wav'
+        file_name = file_name + '.wav'
 
     [y, sr] = librosa.load(MSG_CACHE_PATH + "/" + file_name, sr=48000)
-    duration = librosa.get_duration(filename=MSG_CACHE_PATH + "/" + file_name) * 1000  # value in ms
+    # duration = librosa.get_duration(filename=MSG_CACHE_PATH + "/" + file_name) * 1000  # value in ms
 
-    sd.play(y, sr)
-    sd.sleep(int(duration))
-    sd.stop()
-
-
-if __name__ == '__main__':
-    save_msg_to_cache('Pause this now pls', 'pause')
+    # simpler, and doesn't rely on timing of the recorded message
+    sd.play(y, sr, blocking=True)
+    # sd.sleep(int(duration))
+    # sd.stop()

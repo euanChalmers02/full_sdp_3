@@ -1,6 +1,6 @@
 import time
 
-from Sound.SoundSys.TextToSpeech import *
+from SoundSys.TextToSpeech import *
 
 if __name__ == "__main__":
     print("Hello, World!")
