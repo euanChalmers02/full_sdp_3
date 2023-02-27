@@ -1,6 +1,6 @@
 import unittest
 
-from fnd.Sound.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
+from fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
 
 # TODO: add assert statements here...
 

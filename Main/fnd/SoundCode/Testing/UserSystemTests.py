@@ -1,7 +1,7 @@
 import time
 import unittest
 
-from fnd.Sound.SoundSys.Sound import *
+from fnd.SoundCode.SoundSys.Sound import *
 
 """
 Use https://www.mobilefish.com/services/record_mouse_coordinates/record_mouse_coordinates.php
