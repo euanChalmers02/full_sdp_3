@@ -30,7 +30,7 @@ def play_sounds(all_objects):
     for o in all_objects:
         print(o.get_name())
         o.create_3d()
-        o.textToSpeech()
+        # o.textToSpeech()
         for _ in range(no_beeps):
             o.play()
         time.sleep(pause_length)
