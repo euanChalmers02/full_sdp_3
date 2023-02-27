@@ -25,7 +25,7 @@ jobs:
         python-version: "3.9"
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
+        python -m pip install --upgrade pip setuptools wheel
         pip install flake8 pytest pyttsx3 librosa sounddevice numpy scipy PyAudio
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
