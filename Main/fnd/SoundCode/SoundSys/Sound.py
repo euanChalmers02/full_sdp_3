@@ -6,7 +6,7 @@ import sounddevice as sd
 import os
 
 # adjustable output parameters (add these to the setup class??)
-from fnd.SoundCode.SoundSys.Setup import *
+from Main.fnd.SoundCode.SoundSys.Setup import *
 
 # -- customisable --
 beep_pause = 800  # ms (can we standardise these)
