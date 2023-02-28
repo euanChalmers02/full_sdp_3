@@ -1,12 +1,17 @@
 import time
 
+# import Main.fnd.SoundCode.ButtonsRaw
 from SoundSys.TextToSpeech import *
 from SoundSys.Sound import *
 from SoundSys.Setup import *
 from Main.fnd.SoundCode.SoundSys.VoiceToText import voice_wrapper
+from fnd.SoundCode.Customisation import select_an_option, customise_number_beeps
 
 if __name__ == "__main__":
     obj1 = Sound([79, 470], 0, "Object 1. " + "Il Calcio bistro", True)
+
+    customise_number_beeps()
+
     # obj2 = Sound([65, 291], 0, "Object 2. " , True)
     # obj3 = Sound([348, 195], 0, "Object 3. " , True)
     # obj4 = Sound([700, 279], 0, "Object 3. " , True)
@@ -23,7 +28,9 @@ if __name__ == "__main__":
 
     # sound_action(obj1, [])
 
-    voice_wrapper()
+    # voice_wrapper()
+    #
+    # select_an_option()
 
     # save_msg_to_cache('Qutting', "Qutting")
     # save_msg_to_cache('How many beeps would you like to play, please say the number now.', 'customise_beeps_start')

@@ -1,4 +1,8 @@
-import RPI.GPIO as GPIO # Import Raspberry Pi GPIO library
+#
+# Skeleton for Raspberry Pi button config
+#
+
+import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 def button_callback(channel):
     print("Button was pushed! ",channel)
 

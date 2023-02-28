@@ -1,3 +1,5 @@
+# TODO: delete if the older version of same file?
+
 import queue
 
 from fnd.SoundCode.SoundSys.TextToSpeech import *

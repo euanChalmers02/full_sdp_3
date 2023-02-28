@@ -118,3 +118,6 @@ def check_next_func():
 def update_object(co):
     state.current_object = co
     state.all_objects.append(co)
+
+if __name__ == "__main__":
+    print("hello")
