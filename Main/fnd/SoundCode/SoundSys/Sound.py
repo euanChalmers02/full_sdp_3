@@ -78,37 +78,3 @@ class Sound:
 
     def get_name(self):
         return self.text
-
-    # def textToSpeech(self):
-    #     if self.text == "":
-    #         return
-    #
-    #     if engine._inLoop:
-    #         engine.endLoop()
-    #
-    #     num_words = len(self.text.split(" "))
-    #
-    #     if num_words > 5:
-    #         engine.say('Long Text Here')
-    #         engine.runAndWait()
-    #         time.sleep(2)
-    #         engine.stop()
-    #
-    #     else:
-    #         engine.say(self.text)
-    #         engine.runAndWait()
-    #     # this is  part of the multithreading problem
-    #     # how to know the duration of the text readings
-    #     # could we make duration a function of number of words or characters accounting for speach speed
-    #     time.sleep(2.1)
-    # engine.stop()
-
-    # def read_full_length(self):
-    #     if engine._inLoop == True:
-    #         engine.endLoop()
-    #
-    #     engine.say(self.text)
-    #     engine.runAndWait()
-    #     # need to fix the duration problem
-    #     time.sleep(5)
-    #     engine.stop()

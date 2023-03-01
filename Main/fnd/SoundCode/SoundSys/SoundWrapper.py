@@ -23,10 +23,14 @@ def sound_action(snd):
 
         play_msg_cache(o.get_name())
         o.create_3d()
-        # o.textToSpeech()
-        for _ in range(no_beeps):
-            o.play()
-        time.sleep(pause_length)
+
+        if check_next_func() is None:
+            for _ in range(no_beeps):
+                o.play()
+            time.sleep(pause_length)
+        else:
+            func = check_next_func()
+            func()
     elif check_next_func() == quit_action:
         quit_action()
         return

@@ -36,24 +36,26 @@ def voice():
 
 def pause():
     # how to check if the variable is met throughout the operation??? or is there a better way to kill a thread
+    state.stop = True
     play_msg_cache('pause')
     # add the voice recording from TextToSpeechHere
     print('--> Pause action & kill thread')
-
     # saves all the logs on pause
     save_logs_to_file()
-    state.stop = True
+
 
 
 # how to pause somthing
 def resume():
-    play_msg_cache('resuming_scan')
     state.stop = False
+    play_msg_cache('resuming_scan')
+
 
 
 def quit():
-    print('---> Stop scanning mode')
     state.quit = True
+    print('---> Stop scanning mode')
+
 
 
 # this should be in sound development
