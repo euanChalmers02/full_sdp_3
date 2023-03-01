@@ -2,7 +2,6 @@ import numpy as np
 import librosa
 from scipy import signal
 import sounddevice as sd
-# import pyttsx3
 import os
 
 # adjustable output parameters (add these to the setup class??)

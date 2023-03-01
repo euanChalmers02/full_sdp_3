@@ -1,7 +1,8 @@
 import speech_recognition as sr
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
 from Main.fnd.SoundCode.Buttons.ButtonWrapper import *
-
+from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.fnd.SoundCode.Customisation import *
 
 # on button press start listening and return command
 def listen():
@@ -16,22 +17,19 @@ def listen():
             return None
     try:
         text = r.recognize_google(audio)  # Recognizes audio in English
-        return (text)
+        return text
 
     except:  # When there is no notable speech
         print("Sorry, couldn't hear you!")
         return None
 
-
-COMMANDS = ["pause", "resume", "stop", "read out full", "customise beep sound", "customise voice",
-            "customise number of beeps"]
-COMMANDS_BUTTONS = {"pause": "p", "resume": "r", "stop": "s", "read out full": "m", "customise beep sound": "bs",
-                    "customise voice": "cv", "customise number of beeps": "cnb"}
-
+# this should allow for multiple phrases to be passed and point to same 'button'
+COMMANDS_BUTTONS = {"pause": pause, "resume": resume, "stop": quit, "read out full": read_out_full, "customise beep sound": cycle_beeps,
+                    "customise voice": cycle_voices , "customise number of beeps" : customise_number_beeps}
 
 def parse(voice_command):
     print(voice_command)
-    for o in COMMANDS:
+    for o in COMMANDS_BUTTONS.keys():
         if o in voice_command:
             print("Command said is ... ", o)
             return COMMANDS_BUTTONS[o]
@@ -60,7 +58,7 @@ def voice_wrapper_action():
         result = parse(res)
         #should run the state change similar to the buttons
         result()
-        print("Called " + result + " from VoiceToText!")
+        print("Called " + str(result) + " from VoiceToText!")
         return True
 
 

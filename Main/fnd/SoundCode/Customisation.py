@@ -1,10 +1,29 @@
 import json
 from os import walk
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
+import speech_recognition as sr
 # from Logging import *
-from Main.fnd.SoundCode.SoundSys.VoiceToText import listen
 
 engine = pyttsx3.init()
+
+# on button press start listening and return command
+def cus_listen():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("Speak now")
+        r.energy_threshold = 4000
+        try:
+            audio = r.listen(source, 2)  # Starts Listening
+        except:
+            print("Sorry")
+            return None
+    try:
+        text = r.recognize_google(audio)  # Recognizes audio in English
+        return text
+
+    except:  # When there is no notable speech
+        print("Sorry, couldn't hear you!")
+        return None
 
 
 def change_voice_property(index):
@@ -38,7 +57,7 @@ def update_num_beeps(ind):
 
 # logging should moniter the success rate to the file
 def select_an_option():
-    res = listen()
+    res = cus_listen()
     if "quit" in res:
         # add_log("VOICE COMMAND,FAIL," + res)
         play_msg_cache('Quitting')
@@ -48,7 +67,7 @@ def select_an_option():
         engine.say('Is ' + res + " correct?")
         engine.runAndWait()
 
-        rez = listen()
+        rez = cus_listen()
         if "yes" in rez:
             # add_log("VOICE COMMAND,Success," + res)
             play_msg_cache('Great_Updating_Now')
