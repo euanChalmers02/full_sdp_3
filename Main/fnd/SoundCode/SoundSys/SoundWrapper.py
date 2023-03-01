@@ -1,21 +1,16 @@
 import pyttsx3
 
+from fnd.SoundCode.Buttons.ButtonActions import *
+from fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+
 # -- customisable --
 # move this to a sound wrapper
 pause_length = 3
 no_beeps = 3
 
-from fnd.SoundCode.ButtonWrapper import *
+from fnd.SoundCode.Buttons.ButtonWrapper import *
 
-
-# current array clean will not let the same object be registered twice in 2 seconds
-def clean_arr(curr, arr_snds):
-    # TODO: ?
-    return
-
-
-def sound_action(snd, arr_sounds):
-    print('the current array length is ', len(arr_sounds))
+def sound_action(snd):
     # add the command logic here if the multithreading works
     print('button status', check_next_func())
     update_object(snd)

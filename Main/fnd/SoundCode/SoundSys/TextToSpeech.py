@@ -8,6 +8,8 @@ ROOT = PATH.split("Main")
 MSG_CACHE_PATH = ROOT[0] + "Main/fnd/recorded_msg"
 CACHE_JSON_FILE = ROOT[0] + "Main/fnd/recorded_msg/database"
 
+AudioFiles = os.listdir(MSG_CACHE_PATH)
+
 # Saves a recording of machine-spoken text to cache for quicker playback.
 def save_msg_to_cache(input_text, file_name):
     if 'wav' not in file_name:

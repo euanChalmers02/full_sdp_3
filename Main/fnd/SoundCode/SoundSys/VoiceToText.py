@@ -1,5 +1,6 @@
 import speech_recognition as sr
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
+from Main.fnd.SoundCode.Buttons.ButtonWrapper import *
 
 
 # on button press start listening and return command
@@ -45,3 +46,21 @@ def voice_wrapper():
         return None
     else:
         return parse(res)
+
+def voice_wrapper_action():
+    state.voice = False
+    play_msg_cache('Speak_now')
+    res = listen()
+
+    if res is None:
+        print("default msg said")
+        play_msg_cache('default')
+        return None
+    else:
+        result = parse(res)
+        #should run the state change similar to the buttons
+        result()
+        print("Called " + result + " from VoiceToText!")
+        return True
+
+

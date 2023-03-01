@@ -1,4 +1,6 @@
 import numpy as np
+import pyaudio
+import cv2
 
 # -- customisable --
 scale_factor = 1
@@ -15,6 +17,18 @@ def closest_value_index(input_list, input_value):
 class Setup:
     def __init__(self, DEFAULT_CAMERA_WIDTH, DEFAULT_CAMERA_HEIGHT, DEFAULT_FIELD_OF_VIEW_WIDTH,
                  DEFAULT_FIELD_OF_VIEW_HEIGHT):
+
+        #  -------
+        capture = cv2.VideoCapture(0)
+
+        width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+        height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        print("Camera specs -> ", width, "-", height)
+        print("-" * 20)
+        capture.release()
+        cv2.destroyAllWindows()
+        # ---------
+
         self.DEFAULT_CAMERA_WIDTH = DEFAULT_CAMERA_WIDTH
         self.DEFAULT_CAMERA_HEIGHT = DEFAULT_CAMERA_HEIGHT
         self.DEFAULT_FIELD_OF_VIEW_WIDTH = DEFAULT_FIELD_OF_VIEW_WIDTH
@@ -29,6 +43,21 @@ class Setup:
         # private methods
         self.__compute_elev_vals()
         self.__compute_horizontal_vals()
+
+        # --------------
+
+        p = pyaudio.PyAudio()
+        try:
+            mic = p.get_default_input_device_info()
+            spk = p.get_default_output_device_info()
+            print("-" * 20)
+            print("PyAudio default input->", mic["name"], " -> Index = ", mic["index"])
+            print("PyAudio default output->", spk["name"], " -> Index = ", spk["index"])
+            print("-" * 20)
+        except:
+            print("No mics availiable")
+
+    #     ------------------
 
     # creates array for all elevation (vertical angle) values
     def __compute_elev_vals(self):

@@ -188,18 +188,17 @@ def run(
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
-                    print('centre of mass')
+                    # print('centre of mass')
                     centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
                                       (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
-                    print(centre_of_mass)
+                    # print(centre_of_mass)
 
                     o = Sound(centre_of_mass, 0, names[int(c)], True)
-                    arr_sounds.append(o)
 
                     # check if sound is playing, if not, start
                     if thread2.is_alive() != True:
                         # add_log("Thread2 started @   " + str(o))
-                        thread2 = threading.Thread(target=sound_action, args=(o, arr_sounds))
+                        thread2 = threading.Thread(target=sound_action, args=(o,))
                         thread2.start()
                         print("finished the sound now - yey")
 
@@ -234,6 +233,11 @@ def run(
                     vid_writer[i].write(im0)
 
         # Print time (inference-only)
+        if not thread2.is_alive():
+            if check_next_func() is not None:
+                o = None
+                thread2 = threading.Thread(target=sound_action, args=(o,))
+                thread2.start()
 
         # LOGGER.info(f"{s}{'' if len(det) else '(no detections), '}{dt[1].dt * 1E3:.1f}ms")
 
