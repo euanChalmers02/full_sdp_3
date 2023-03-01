@@ -8,7 +8,9 @@ from fnd.SoundCode.Customisation import select_an_option, customise_number_beeps
 from fnd.SoundCode.SoundSys.VoiceToText import *
 
 if __name__ == "__main__":
-    voice_wrapper_action()
+    add_log("this is a test msg")
+    save_logs_to_file()
+    # voice_wrapper_action()
 
     # text = "Hello world this is xyz"
     # textToSpeech(text)
