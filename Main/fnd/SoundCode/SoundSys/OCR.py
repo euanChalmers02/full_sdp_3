@@ -19,9 +19,6 @@ class OCR:
         self.engine.stop()
         print('finish callback ', name, completed)
 
-    def new(self):
-        pass
-
     def textToSpeech(self):
 
         if self.text == "":
