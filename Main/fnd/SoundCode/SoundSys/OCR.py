@@ -1,6 +1,6 @@
 # OCR commands to read out full text??
 import pyttsx3
-from fnd.SoundCode.Buttons.ButtonActions import *
+from Main.fnd.SoundCode.Buttons.ButtonActions import *
 
 class OCR:
 
