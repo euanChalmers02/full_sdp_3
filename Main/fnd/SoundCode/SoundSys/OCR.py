@@ -15,10 +15,6 @@ class OCR:
             self.textToSpeech()
             print("should now resume engine @the last word said & engine should be deid ",self.engine.isBusy())
 
-    def pos_handler(self):
-        pass
-
-
     def onEnd(self,name, completed):
         self.engine.stop()
         print('finish callback ', name, completed)
