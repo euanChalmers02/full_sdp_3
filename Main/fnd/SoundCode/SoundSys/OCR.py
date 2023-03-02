@@ -15,6 +15,10 @@ class OCR:
             self.textToSpeech()
             print("should now resume engine @the last word said & engine should be deid ",self.engine.isBusy())
 
+    def pos_handler(self):
+        pass
+
+
     def onEnd(self,name, completed):
         self.engine.stop()
         print('finish callback ', name, completed)
@@ -38,7 +42,7 @@ class OCR:
         self.engine.stop()
 
         return True
-
+    # this needs to eb cjhanged
     def __init__(self, text):
         self.engine = pyttsx3.init()
         self.text = text
