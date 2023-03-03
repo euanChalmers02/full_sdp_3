@@ -15,13 +15,14 @@ def console():
     while flag:
         try:
             cmd = input('>')
+            add_log("EOFerror thrown in button change")
+            cmd_queue.put(cmd)
+            action = BUTTONS_TO_COMMANDS.get(cmd, invalid_input)
+            print("action ",action)
+            action()
+            print('the curr state ', state.str_print())
         except EOFError as e:
             print(e)
-        cmd_queue.put(cmd)
-        action = BUTTONS_TO_COMMANDS.get(cmd, invalid_input)
-        print("action ",action)
-        action()
-        print('the curr state ', state.str_print())
 
 
 # Calling
