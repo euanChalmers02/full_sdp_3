@@ -8,9 +8,9 @@ from Main.fnd.SoundCode.Buttons.ButtionChange import *
 
 # helper func
 def set_now():
-    time.sleep(1.5)
+    time.sleep(4)
     state.stop = True
-    time.sleep(1)
+    time.sleep(6)
     state.stop = False
     return
 
