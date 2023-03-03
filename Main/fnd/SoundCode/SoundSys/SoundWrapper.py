@@ -1,7 +1,7 @@
 import pyttsx3
 
-from fnd.SoundCode.Buttons.ButtonActions import *
-from fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.fnd.SoundCode.Buttons.ButtonActions import *
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
 
 # -- customisable --
 # move this to a sound wrapper
