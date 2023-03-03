@@ -199,6 +199,7 @@ def run(
 
                     # check if sound is playing, if not, start
                     if thread2.is_alive() != True:
+                        print(im0)
                         # add_log("Thread2 started @   " + str(o))
                         thread2 = threading.Thread(target=sound_action, args=(o,))
                         thread2.start()
