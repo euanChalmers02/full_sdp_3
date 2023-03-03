@@ -2,13 +2,14 @@ import pyttsx3
 
 from Main.fnd.SoundCode.Buttons.ButtonActions import *
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.fnd.SoundCode.Buttons.ButtonWrapper import *
 
 # -- customisable --
 # move this to a sound wrapper
 pause_length = 3
 no_beeps = 3
 
-from fnd.SoundCode.Buttons.ButtonWrapper import *
+
 
 def sound_action(snd):
     # add the command logic here if the multithreading works
