@@ -6,6 +6,7 @@ class OCR:
 
     # should kill in multithreading if state changed using the onword?
     def onWord(self,name, location, length):
+
         self.word_num = self.word_num + 1
         if check_next_func() is not None:
             action = check_next_func()

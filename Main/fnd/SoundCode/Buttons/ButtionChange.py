@@ -8,13 +8,15 @@ from Main.fnd.SoundCode.Logging import *
 # this should hold the current sys state that can be easly checked
 curr_action_status = None
 
-
 # this is where the buttons to command transfer will happen / including all the gpi port work
 def console():
     flag = True
     print('thread started')
     while flag:
-        cmd = input('>')
+        try:
+            cmd = input('>')
+        except EOFError as e:
+            print(e)
         cmd_queue.put(cmd)
         action = BUTTONS_TO_COMMANDS.get(cmd, invalid_input)
         print("action ",action)

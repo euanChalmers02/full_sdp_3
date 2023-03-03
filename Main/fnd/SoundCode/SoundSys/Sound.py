@@ -11,8 +11,6 @@ from Main.fnd.SoundCode.SoundSys.Setup import *
 beep_pause = 800  # ms (can we standardise these)
 beep_duration = 0.3  # sec
 beep_type = 'beep-07a.wav'
-# engine = pyttsx3.init()
-# engine.setProperty('rate', 400)
 
 PATH = os.path.abspath(__file__)
 ROOT = (PATH.split("Main"))[0] + "Main/fnd/"
