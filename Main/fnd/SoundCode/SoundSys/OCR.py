@@ -13,34 +13,35 @@ class OCR:
             action()
             print("break @ ", self.word_num)
             self.textToSpeech()
-            print("should now resume engine @the last word said & engine should be deid ",self.engine.isBusy())
+            print("this should resume?")
+            # print("should now resume engine @the last word said & engine should be deid ",self.engine.isBusy())
 
     def onEnd(self,name, completed):
-        self.engine.stop()
+        # self.engine.stop()
         print('finish callback ', name, completed)
 
-    def test(self):
-        pass
     def textToSpeech(self):
+
+        # self.engine = pyttsx3.init()
 
         if self.text == "":
             return
 
         self.engine = pyttsx3.init()
+
+        self.engine.connect('started-word', self.onWord)
+        self.engine.connect('finished-utterance', self.onEnd)
+
         self.text = self.text.split(" ")
         self.text = self.text[self.word_num:]
         self.text = ' '.join(self.text)
         print("current txt->speech ", self.text)
 
-        self.engine.connect('started-word', self.onWord)
-        self.engine.connect('finished-utterance', self.onEnd)
-
         self.engine.say(self.text)
-        self.engine.runAndWait()
-        self.engine.stop()
+        self.engine.startLoop()
 
         return True
-    # this needs to eb cjhanged
+
     def __init__(self, text):
         self.engine = pyttsx3.init()
         self.text = text

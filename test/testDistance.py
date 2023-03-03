@@ -8,7 +8,7 @@ sound_obj = Sound([465, 291], 300, "Arrow.wav" , True)
 class Test_Distance(unittest.TestCase):
     def test_general(self):
         sound_obj = Sound([765, 291], 300, "Arrow.wav" , True)
-        sound_action(sound_obj, [])
+        sound_action(sound_obj)
 
     def test_gen2(self):
         sound_obj = Sound([465, 291], 0.2, "Arrow.wav", True)

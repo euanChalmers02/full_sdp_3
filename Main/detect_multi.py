@@ -40,6 +40,7 @@ import threading
 from fnd.SoundCode.SoundSys.Sound import Sound
 from fnd.SoundCode.SoundSys.SoundWrapper import *
 from fnd.SoundCode.Logging import *
+from fnd.SoundCode.Buttons.ButtionChange import *
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -98,7 +99,8 @@ def run(
 
     # euans adding here
     thread2 = threading.Thread(target=sound_action)
-
+    thread3 = threading.Thread(target=console)
+    thread3.start()
     add_log("Thread 3 has been created")
     arr_sounds = []
 
