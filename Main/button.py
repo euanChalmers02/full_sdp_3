@@ -40,7 +40,7 @@ def increaseVolume(channel):
 
 def decreaseVolume(channel):
     if GPIO.input(channel) == GPIO.LOW:
-        print("button3 is pressed, increase volume")
+        print("button3 is pressed, decrease volume")
 
 # add event detection
 GPIO.add_event_detect(button1_pin, GPIO.FALLING, callback=switchOnOff, bouncetime=300)
