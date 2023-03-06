@@ -213,7 +213,7 @@ def run(
                         thread2.start()
                         print("finished the sound now - yey")
 
-                    print("here")
+                    # print("here")
             # Stream results
             im0 = annotator.result()
             if view_img:

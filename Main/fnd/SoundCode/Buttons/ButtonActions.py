@@ -31,8 +31,3 @@ def check_next_func():
         return voice_wrapper_action
     else:
         return None
-
-
-def update_object(co):
-    state.current_object = co
-    state.all_objects.append(co)
