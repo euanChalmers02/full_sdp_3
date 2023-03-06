@@ -5,6 +5,12 @@ from Main.fnd.SoundCode.SoundSys.SoundWrapper import sound_action
 
 sound_obj = Sound([465, 291], 300, "Arrow.wav" , True)
 
+
+# x = 7
+# def sensor(op):
+#     x = x op 1
+#     return x
+
 class Test_Distance(unittest.TestCase):
     def test_general(self):
         sound_obj = Sound([765, 291], 300, "Arrow.wav" , True)

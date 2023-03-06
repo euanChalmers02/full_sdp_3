@@ -8,6 +8,8 @@ class ThreadingState:
         self.quit = False
         self.all_objects = []
         self.voice = False
+        self.ocr = False
+        self.dist = False
 
     def str_print(self):
         print('Stop', self.stop)

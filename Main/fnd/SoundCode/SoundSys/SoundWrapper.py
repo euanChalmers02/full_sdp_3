@@ -10,7 +10,6 @@ pause_length = 3
 no_beeps = 3
 
 
-
 def sound_action(snd):
     # add the command logic here if the multithreading works
     print('button status', check_next_func())

@@ -64,8 +64,21 @@ def read_out_full():
     print('--> Read action called and waiting to activate')
     return
 
+# how to exit these modes...
+def ocr():
+    play_msg_cache('ocr')
+    state.ocr = True
+
+def dist():
+    play_msg_cache('dist')
+    state.dist = True
+
+def exit_mode():
+    state.ocr = False
+    state.dist = False
+
 
 # these are the mappings of the buttons to actions
 cmd_queue = queue.Queue()
-BUTTONS_TO_COMMANDS = {'p': pause, 'm': read_out_full, 'r': resume, 'q': quit, 'v': voice}
+BUTTONS_TO_COMMANDS = {'p': pause, 'm': read_out_full, 'r': resume, 'q': quit, 'v': voice ,'o':ocr ,'d':dist ,'e':exit_mode}
 

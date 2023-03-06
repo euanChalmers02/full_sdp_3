@@ -1,36 +1,33 @@
 import threading
 import time
 
-from Main.fnd.SoundCode.Buttons.ButtionChange import *
-from SoundSys.TextToSpeech import *
-from SoundSys.Sound import *
-from fnd.SoundCode.Customisation import select_an_option, customise_number_beeps
-from fnd.SoundCode.SoundSys.VoiceToText import *
-from fnd.SoundCode.SoundSys.OCR import *
+from fnd.SoundCode.Buttons.ButtionChange import console
+from fnd.SoundCode.SoundSys.DIST import distance_action_or_state
+from fnd.SoundCode.Buttons.ButtonWrapper import *
+from fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
+
+#
+# from Main.fnd.SoundCode.Buttons.ButtionChange import *
+# from SoundSys.TextToSpeech import *
+# from SoundSys.Sound import *
+# from fnd.SoundCode.Customisation import select_an_option, customise_number_beeps
+# from fnd.SoundCode.SoundSys.VoiceToText import *
+# from fnd.SoundCode.SoundSys.OCR import *
 
 if __name__ == "__main__":
-    obama_Speech = """Barack Obama: Words Matter. Don’t tell me words don’t matter. I have a dream – just words words. We hold
-        these truths to be self evident that all men are created equal – just words. We
-        have nothing to fear but fear itself – just words, just speeches.
-        It’s true that speeches don’t solve all problems, but what is also true is that if
-        we can’t inspire our country to believe again, then it doesn’t matter how many
-        policies and plans we have, and that is why I’m running for president of the
-        United States of America, and that’s why we just won 8 elections straight
-        because the American people want to believe in change again. Don’t tell me
-        words don’t matter! """
+    save_msg_to_cache("OCR Mode Activated",'ocr')
+    save_msg_to_cache("Distance Mode Activated",'dist')
+    #
+    # thread_buttons = threading.Thread(target=console,args=())
+    # thread_buttons.start()
 
-    thread_test = threading.Thread(target=console, args=())
-    thread_test.start()
 
-    # this will kill after x amount of time instead of using keyboard inputs
-    # thread_test_2 = threading.Thread(target=set_now, args=())
-    # thread_test_2.start()
-    print('Started Thread')
-    rx = OCR(obama_Speech)
 
-    # add_log("this is a test msg")
-    # save_logs_to_file()
-    # voice_wrapper_action()
+    # how to fake setup the state -> using another thread??
+
+
+    #     if closer = true then will reduce else will get further away until limit reached
+
 
     # text = "Hello world this is xyz"
     # textToSpeech(text)

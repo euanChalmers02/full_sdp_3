@@ -35,6 +35,7 @@ from pathlib import Path
 import torch
 import numpy as np
 import threading
+from OCR_PERCEPTION.basic import *
 
 # sort the directories names
 from fnd.SoundCode.SoundSys.Sound import Sound
@@ -130,6 +131,7 @@ def run(
     model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
     seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
     for path, im, im0s, vid_cap, s in dataset:
+
         with dt[0]:
             arrow_image = im
             im = torch.from_numpy(im).to(model.device)
@@ -158,6 +160,13 @@ def run(
                 s += f'{i}: '
             else:
                 p, im0, frame = path, im0s.copy(), getattr(dataset, 'frame', 0)
+
+
+
+            if state.ocr is True:
+                #the flag for ocr mode here (and create a breakout to class the state??)
+                # do we need to change the the way this is called to create an image state
+                image_to_text(im0)
 
             p = Path(p)  # to Path
             save_path = str(save_dir / p.name)  # im.jpg
@@ -199,7 +208,6 @@ def run(
 
                     # check if sound is playing, if not, start
                     if thread2.is_alive() != True:
-                        print(im0)
                         # add_log("Thread2 started @   " + str(o))
                         thread2 = threading.Thread(target=sound_action, args=(o,))
                         thread2.start()
@@ -294,7 +302,6 @@ def main(opt):
     add_log("The main function has started :)")
     check_requirements(exclude=('tensorboard', 'thop'))
     run(**vars(opt))
-
 
 # starts
 if __name__ == "__main__":
