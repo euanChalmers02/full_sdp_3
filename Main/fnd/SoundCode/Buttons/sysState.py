@@ -1,6 +1,6 @@
 import time
 
-from fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
 
 
 # a command should either be in an any active state or specified for each which it is available
@@ -19,11 +19,6 @@ class Command:
               f"    *Play... {self.play}  \n"
               f"    *Sets sysState to... {self.set_to}")
         print("*"*15)
-
-
-# test
-xr = Command("all", 'p', 'pause', 'pause')
-xr.pretty_print_command()
 
 
 # New buttons will be bnm
