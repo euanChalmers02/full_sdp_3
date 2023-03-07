@@ -24,7 +24,7 @@ def switchOnOff(channel):
     start_time = time.time()
     while GPIO.input(channel) == GPIO.LOW:
         if (time.time() - start_time) > long_press_time:
-            button1_state = not button1_state
+            # button1_state = not button1_state
             print("button1 is long pressed")
             break
 
