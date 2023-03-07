@@ -1,6 +1,9 @@
 # OCR commands to read out full text??
 import pyttsx3
-from Main.fnd.SoundCode.Buttons.ButtonActions import *
+from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+state = get_instate_of_state()
+
 
 class OCR:
 
@@ -8,7 +11,7 @@ class OCR:
     def onWord(self,name, location, length):
 
         self.word_num = self.word_num + 1
-        if check_next_func() is not None:
+        if state.get_state() != "ocr":
             action = check_next_func()
             self.engine.stop()
             action()

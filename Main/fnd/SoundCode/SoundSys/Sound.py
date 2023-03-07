@@ -4,6 +4,10 @@ from scipy import signal
 import sounddevice as sd
 import os
 
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+
+state = get_instate_of_state()
+
 # adjustable output parameters (add these to the setup class??)
 from Main.fnd.SoundCode.SoundSys.Setup import *
 
@@ -78,6 +82,11 @@ class Sound:
             return
 
         temp = self.convert_distance_time()
+
+        # used for light debugging
+        if state.debug:
+            print("self.Bin_Max, self.freq")
+            print(self.Bin_Max, self.freq)
 
         sd.play(self.Bin_Max, self.freq)
         sd.sleep(int(beep_duration*temp))

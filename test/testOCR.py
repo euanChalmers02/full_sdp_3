@@ -2,7 +2,7 @@ import threading
 import unittest
 import time
 
-from Main.fnd.SoundCode.Buttons.ButtonWrapper import *
+from Main.fnd.SoundCode.Buttons.sysState import *
 from Main.fnd.SoundCode.SoundSys.OCR import *
 from Main.fnd.SoundCode.Buttons.ButtionChange import *
 

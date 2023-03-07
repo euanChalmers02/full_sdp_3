@@ -100,7 +100,7 @@ def run(
 
     # euans adding here
     thread2 = threading.Thread(target=sound_action)
-    thread3 = threading.Thread(target=console)
+    thread3 = threading.Thread(target=console_two)
     thread3.start()
     add_log("Thread 3 has been created")
     arr_sounds = []
@@ -161,9 +161,7 @@ def run(
             else:
                 p, im0, frame = path, im0s.copy(), getattr(dataset, 'frame', 0)
 
-
-
-            if state.ocr is True:
+            if "ocr" in state.get_state():
                 #the flag for ocr mode here (and create a breakout to class the state??)
                 # do we need to change the the way this is called to create an image state
                 image_to_text(im0)
@@ -207,7 +205,7 @@ def run(
                     o = Sound(centre_of_mass, 0, names[int(c)], True)
 
                     # check if sound is playing, if not, start
-                    if thread2.is_alive() != True:
+                    if thread2.is_alive() != True and state.get_state() == "Scan":
                         # add_log("Thread2 started @   " + str(o))
                         thread2 = threading.Thread(target=sound_action, args=(o,))
                         thread2.start()
@@ -244,8 +242,11 @@ def run(
                     vid_writer[i].write(im0)
 
         # Print time (inference-only)
+
+        # can we change this to some kind of next func check
         if not thread2.is_alive():
-            if check_next_func() is not None:
+            # needs to be scan in to allow for ocr +
+            if "Scan" not in state.get_state():
                 o = None
                 thread2 = threading.Thread(target=sound_action, args=(o,))
                 thread2.start()

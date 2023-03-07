@@ -1,5 +1,7 @@
-from fnd.SoundCode.Buttons.ButtonWrapper import state
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 from fnd.SoundCode.SoundSys.Sound import Sound
+from Main.fnd.SoundCode.Buttons.ButtionChange import *
+state = get_instate_of_state()
 
 # ----------------------------FAKE----------------------------------
 class Fake_Sensor:
@@ -26,15 +28,14 @@ class Fake_Sensor:
 
 # ----------------------------END OF FAKE --------------------------
 
-
 # this is the driver code for the distance and should be pointed to by a thread or treated as a state
 def distance_action_or_state():
     # this would connect to the sensor?? but will create the fake sensor here
     fs = Fake_Sensor(7, True, 0.5)
-    print("state.dist = ",state.dist)
 
     # should keep going until a button is pressed
-    while state.dist:
+    print("state.get_state()  ",state.get_state(), "id is ",state.id)
+    while state.get_state() == "dist":
         print('run ...')
         # fs.sensor() is the distance sensor response
         dist = fs.sensor()
@@ -45,4 +46,5 @@ def distance_action_or_state():
 
         print("dist",dist)
         o = Sound(middle,dist, "", True)
+        o.create_3d()
         o.play()
