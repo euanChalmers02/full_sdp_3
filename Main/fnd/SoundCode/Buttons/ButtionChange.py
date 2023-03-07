@@ -1,7 +1,7 @@
 import time
 
 from Main.fnd.SoundCode.SoundSys.VoiceToText import voice_wrapper_action
-from fnd.SoundCode.SoundSys.DIST import distance_action_or_state
+from Main.fnd.SoundCode.SoundSys.DIST import distance_action_or_state
 from Main.fnd.SoundCode.Logging import *
 from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 state = get_instate_of_state()
