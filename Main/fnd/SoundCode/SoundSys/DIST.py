@@ -1,5 +1,5 @@
 from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
-from fnd.SoundCode.SoundSys.Sound import Sound
+from Main.fnd.SoundCode.SoundSys.Sound import Sound
 state = get_instate_of_state()
 
 # ----------------------------FAKE----------------------------------

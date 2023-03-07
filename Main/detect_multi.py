@@ -38,10 +38,10 @@ import threading
 from OCR_PERCEPTION.basic import *
 
 # sort the directories names
-from fnd.SoundCode.SoundSys.Sound import Sound
-from fnd.SoundCode.SoundSys.SoundWrapper import *
-from fnd.SoundCode.Logging import *
-from fnd.SoundCode.Buttons.ButtionChange import *
+from Main.fnd.SoundCode.SoundSys.Sound import Sound
+from Main.fnd.SoundCode.SoundSys.SoundWrapper import *
+from Main.fnd.SoundCode.Logging import *
+from Main.fnd.SoundCode.Buttons.ButtionChange import *
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
