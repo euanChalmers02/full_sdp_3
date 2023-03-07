@@ -19,14 +19,14 @@ class Setup:
                  DEFAULT_FIELD_OF_VIEW_HEIGHT):
 
         #  -------
-        capture = cv2.VideoCapture(0)
-
-        width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
-        height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
-        print("Camera specs -> ", width, "-", height)
-        print("-" * 20)
-        capture.release()
-        cv2.destroyAllWindows()
+        # capture = cv2.VideoCapture(0)
+        #
+        # width = capture.get(cv2.CAP_PROP_FRAME_WIDTH)
+        # height = capture.get(cv2.CAP_PROP_FRAME_HEIGHT)
+        # print("Camera specs -> ", width, "-", height)
+        # print("-" * 20)
+        # capture.release()
+        # cv2.destroyAllWindows()
         # ---------
 
         self.DEFAULT_CAMERA_WIDTH = DEFAULT_CAMERA_WIDTH

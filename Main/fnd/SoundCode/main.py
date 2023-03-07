@@ -5,6 +5,14 @@ import random
 from fnd.SoundCode.Buttons.ButtionChange import console_two
 
 if __name__ == "__main__":
+    # first iteration of the multi object capture
+    # dict_i = {"name":name,"coord":10202}
+    # L = [dict_i,dict_i,dict_i]
+    # print(L)
+    # xr = list({v['name']:v for v in L}.values())
+    # print(xr)
+
+
     # class StateManger(object):
     #     _instance = None
     #     no_beeps = 3

@@ -21,6 +21,7 @@ def console_two():
 #     state.dist = False
 
 def pause_wait_action():
+    save_logs_to_file()
     while state.get_state() == "pause":
         time.sleep(1)
 
