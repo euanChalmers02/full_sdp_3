@@ -17,9 +17,9 @@ class OCR:
             print("this should resume?")
             # print("should now resume engine @the last word said & engine should be deid ",self.engine.isBusy())
 
-    def onEnd(self,name, completed):
-        # self.engine.stop()
-        print('finish callback ', name, completed)
+    # def onEnd(self,name, completed):
+    #     # self.engine.stop()
+    #     print('finish callback ', name, completed)
 
     def textToSpeech(self):
 
@@ -31,7 +31,7 @@ class OCR:
         self.engine = pyttsx3.init()
 
         self.engine.connect('started-word', self.onWord)
-        self.engine.connect('finished-utterance', self.onEnd)
+        # self.engine.connect('finished-utterance', self.onEnd)
 
         self.text = self.text.split(" ")
         self.text = self.text[self.word_num:]
@@ -40,6 +40,8 @@ class OCR:
 
         self.engine.say(self.text)
         self.engine.startLoop()
+
+        print("finsihed")
 
         return True
 

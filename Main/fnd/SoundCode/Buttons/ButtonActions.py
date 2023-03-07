@@ -1,6 +1,8 @@
 import time
 from Main.fnd.SoundCode.Buttons.ButtonWrapper import state
 from Main.fnd.SoundCode.SoundSys.VoiceToText import voice_wrapper_action
+from fnd.SoundCode.SoundSys.DIST import distance_action_or_state
+
 
 def pause_wait_action():
     while check_next_func() is pause_wait_action:
@@ -29,5 +31,7 @@ def check_next_func():
         return quit_action
     elif state.voice:
         return voice_wrapper_action
+    elif state.dist:
+        return distance_action_or_state
     else:
         return None

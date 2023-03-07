@@ -4,10 +4,6 @@ import os
 pytesseract.pytesseract.tesseract_cmd = '/usr/local/bin/tesseract'
 from Main.fnd.SoundCode.SoundSys.OCR import *
 
-PATH = os.path.abspath(__file__)
-print(PATH)
-# ROOT = PATH.split("Main")
-# PATH = ROOT[0] + "Main/recorded_msg"
 
 def image_to_text(img):
     # pytesseract
