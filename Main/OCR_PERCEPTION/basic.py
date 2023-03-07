@@ -8,6 +8,9 @@ PATH = os.path.abspath(__file__)
 ROOT = PATH.split("Main")
 PATH = ROOT[0] + "Main/SoundCode/logs/"
 
+var_one = "this is a raniodm test"
+
+
 def image_to_text(img):
     # pytesseract
     # image_path = "/Users/euanchalmers/Desktop/ocr/imges/ocrtest_shift.png"
