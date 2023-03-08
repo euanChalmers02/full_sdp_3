@@ -20,3 +20,5 @@ README->
 
 
 
+<h1>Running on the pi</h1>
+After cloning for the first time please remember to run "git pull" in the project file!
