@@ -35,13 +35,21 @@ from pathlib import Path
 import torch
 import numpy as np
 import threading
-from OCR_PERCEPTION.basic import *
+import serial,time
+from Main.OCR_PERCEPTION.basic import *
 
 # sort the directories names
 from Main.fnd.SoundCode.SoundSys.Sound import Sound
 from Main.fnd.SoundCode.SoundSys.SoundWrapper import *
 from Main.fnd.SoundCode.Logging import *
-from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.fnd.SoundCode.Buttons.button import *
+
+ser = serial.Serial("/dev/serial0", 115200,timeout=0) # mini UART serial device
+if ser.isOpen() == False:
+    ser.open() # open serial port if not open
+    
+
+
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
@@ -56,7 +64,20 @@ from utils.general import (LOGGER, Profile, check_file, check_img_size, check_im
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, smart_inference_mode
 
+def read_tfluna_data():
+    while True:
+        counter = ser.in_waiting # count the number of bytes of the serial port
+        if counter > 8:
+            bytes_serial = ser.read(9) # read 9 bytes
+            ser.reset_input_buffer() # reset buffer
 
+            if bytes_serial[0] == 0x59 and bytes_serial[1] == 0x59: # check first two bytes
+                distance = bytes_serial[2] + bytes_serial[3]*256 # distance in next two bytes
+                strength = bytes_serial[4] + bytes_serial[5]*256 # signal strength in next two bytes
+                temperature = bytes_serial[6] + bytes_serial[7]*256 # temp in next two bytes
+                temperature = (temperature/8.0) - 256.0 # temp scaling and offset
+                return distance/100.0,strength,temperature
+                
 @smart_inference_mode()
 def run(
         weights='/home/pi/yolov5/best.pt',
@@ -100,7 +121,7 @@ def run(
 
     # euans adding here
     thread2 = threading.Thread(target=sound_action)
-    thread3 = threading.Thread(target=console_two)
+    thread3 = threading.Thread(target=buttons_console)
     thread3.start()
     add_log("Thread 3 has been created")
     arr_sounds = []
@@ -201,6 +222,11 @@ def run(
                     centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
                                       (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
                     # print(centre_of_mass)
+
+                    distance,strength,temperature = read_tfluna_data() # read values
+                    print('Distance: {0:2.2f} m, Strength: {1:2.0f} / 65535 (16-bit), Chip Temperature: {2:2.1f} C'.\
+                              format(distance,strength,temperature)) # print sample data
+
 
                     o = Sound(centre_of_mass, 0, names[int(c)], True)
 
