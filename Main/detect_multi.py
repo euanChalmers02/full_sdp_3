@@ -204,6 +204,7 @@ def run(
 
                     o = Sound(centre_of_mass, 0, names[int(c)], True)
 
+                    # move out one level of abstraction
                     # check if sound is playing, if not, start
                     if thread2.is_alive() != True and state.get_state() == "Scan":
                         # add_log("Thread2 started @   " + str(o))

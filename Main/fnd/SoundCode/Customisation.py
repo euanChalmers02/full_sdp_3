@@ -2,6 +2,7 @@ import json
 from os import walk
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
 import speech_recognition as sr
+import os
 # from Logging import *
 
 engine = pyttsx3.init()
@@ -141,3 +142,63 @@ def customise_number_beeps():
     ind = select_an_option()
     if ind is not None:
         update_num_beeps(ind)
+
+def get_audio_level(os_plat):
+    if os_plat == "mac":
+        stream = os.popen("osascript -e 'get volume settings'")
+        output = stream.read()
+        output = output.split(":")[1]
+        return output.split(',')[0]
+
+    elif os_plat == "pi":
+        stream = os.popen("amixer get Master")
+        output = stream.read()
+        print(output)
+    else:
+        print("unknown os")
+
+def update_level_to(os_plat,level):
+    if os_plat == "mac":
+        stream = os.popen("osascript -e'set volume "+str(level/10)+"' ")
+        output = stream.read()
+        print(output)
+    elif os_plat == "pi":
+        stream = os.popen("amixer set Master "+str(level)+"%")
+        output = stream.read()
+        print(output)
+    else:
+        print("unknown os")
+
+def audio_driver_up():
+    os_plat = "mac"
+    curr = get_audio_level(os_plat)
+    print("audio level",curr)
+
+    level = int(curr) + 10
+
+    # check limit
+    if level < 0:
+        level = 0
+    elif level > 100:
+        level = 100
+
+    print("level = ",level)
+    update_level_to(os_plat, level)
+
+def audio_driver_down():
+    os_plat = "mac"
+    curr = get_audio_level(os_plat)
+    print("audio level",curr)
+
+    level = int(curr) - 10
+
+    # check limit
+    if level < 0:
+        level = 0
+    elif level > 100:
+        level = 100
+
+    print("level = ",level)
+    update_level_to(os_plat, level)
+
+

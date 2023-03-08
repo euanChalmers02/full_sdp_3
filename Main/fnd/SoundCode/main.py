@@ -3,8 +3,11 @@ import time
 import random
 
 from fnd.SoundCode.Buttons.ButtionChange import console_two
+from fnd.SoundCode.Buttons.sysState import next_mode
 
 if __name__ == "__main__":
+    print(next_mode("voice"))
+
     # first iteration of the multi object capture
     # dict_i = {"name":name,"coord":10202}
     # L = [dict_i,dict_i,dict_i]
@@ -87,7 +90,7 @@ if __name__ == "__main__":
     # save_msg_to_cache('Please say the number of the voice you would like.', 'voice_number_start')
     # save_msg_to_cache('Please say the number of the beep sound you would like.', 'beep_type_start')
 
-    start = time.time()
+    # start = time.time()
     # save_msg_to_cache('Test sentence to check speed', "test_phrase")
     # play_msg_cache("test_phrase")
     #
@@ -95,4 +98,4 @@ if __name__ == "__main__":
     # engine.say('Test sentence to check speed')
     # engine.runAndWait()
 
-    print('Total time is', time.time() - start)
+    # print('Total time is', time.time() - start)
