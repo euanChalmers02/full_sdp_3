@@ -34,10 +34,10 @@ def switchOnOff(channel):
         print(elapsed)
         if elapsed > long_press_time:
             print("button1 is long pressed")
-            state.commandInterface('1')
+            state.commandInterface('AA')
         else:
             print("button1 is not long pressed")
-            state.commandInterface('2')
+            state.commandInterface('A')
             
 
 def increaseVolume(channel):
@@ -51,10 +51,10 @@ def increaseVolume(channel):
         print(elapsed)
         if elapsed > long_press_time:
             print("button1 is long pressed")
-            state.commandInterface('1')
+            state.commandInterface('BB')
         else:
             print("button1 is not long pressed")
-            state.commandInterface('2')
+            state.commandInterface('B')
             
 def decreaseVolume(channel):
     global start
@@ -67,10 +67,10 @@ def decreaseVolume(channel):
         print(elapsed)
         if elapsed > long_press_time:
             print("button3 is long pressed")
-            state.commandInterface('1')
+            state.commandInterface('CC')
         else:
             print("button3 is short pressed")
-            state.commandInterface('2')
+            state.commandInterface('C')
 
 
 def buttons_console():
