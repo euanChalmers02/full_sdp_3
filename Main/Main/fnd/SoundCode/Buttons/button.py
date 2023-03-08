@@ -41,11 +41,36 @@ def switchOnOff(channel):
             
 
 def increaseVolume(channel):
-    print("button2 is pressed, increase volume")
-    state.commandInterface('3')
+    global start
+    global end
+    if GPIO.input(channel) == 1:
+        start = time.time()
+    if GPIO.input(channel) == 0:
+        end = time.time()
+        elapsed = end - start
+        print(elapsed)
+        if elapsed > long_press_time:
+            print("button1 is long pressed")
+            state.commandInterface('1')
+        else:
+            print("button1 is not long pressed")
+            state.commandInterface('2')
+            
 def decreaseVolume(channel):
-    print("button3 is pressed, decrease volume")
-    state.commandInterface('4')
+    global start
+    global end
+    if GPIO.input(channel) == 1:
+        start = time.time()
+    if GPIO.input(channel) == 0:
+        end = time.time()
+        elapsed = end - start
+        print(elapsed)
+        if elapsed > long_press_time:
+            print("button3 is long pressed")
+            state.commandInterface('1')
+        else:
+            print("button3 is short pressed")
+            state.commandInterface('2')
 
 
 def buttons_console():
