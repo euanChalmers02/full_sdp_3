@@ -186,7 +186,7 @@ def audio_driver_up():
     update_level_to(os_plat, level)
 
 def audio_driver_down():
-    os_plat = "mac"
+    os_plat = "pi"
     curr = get_audio_level(os_plat)
     print("audio level",curr)
 
