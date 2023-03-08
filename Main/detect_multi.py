@@ -228,7 +228,7 @@ def run(
                               format(distance,strength,temperature)) # print sample data
 
 
-                    o = Sound(centre_of_mass, 0, names[int(c)], True)
+                    o = Sound(centre_of_mass, 4, names[int(c)], True)
 
                     # move out one level of abstraction
                     # check if sound is playing, if not, start
