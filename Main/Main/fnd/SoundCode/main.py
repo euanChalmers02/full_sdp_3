@@ -4,9 +4,11 @@ import time
 import random
 
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
+import sys
 
 if __name__ == "__main__":
-    save_msg_to_cache("Scan mode activated",'Scan_Mode')
+    print(sys.path.append("../"))
+    # save_msg_to_cache("Scan mode activated",'Scan_Mode')
 
     # first iteration of the multi object capture
     # dict_i = {"name":name,"coord":10202}
