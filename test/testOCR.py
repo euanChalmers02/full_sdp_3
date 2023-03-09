@@ -2,9 +2,9 @@ import threading
 import unittest
 import time
 
-from Main.fnd.SoundCode.Buttons.sysState import *
-from Main.fnd.SoundCode.SoundSys.OCR import *
-from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.Main.fnd.SoundCode.Buttons.sysState import *
+from Main.Main.fnd.SoundCode.SoundSys.OCR import *
+from Main.Main.fnd.SoundCode.Buttons.ButtionChange import *
 
 # helper func
 def set_now():
