@@ -37,6 +37,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
     - name: Import All Modules
-      run: pip install -e 
+      run: |
+      python ./setup.py build
+      python ./setup.py install 
+      python -c "import Main"
     - name: Test with unittest
       run: python -m unittest discover -s ./test -p 'test*.py'
