@@ -1,7 +1,24 @@
+import sys
 import time
 
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
 from Main.fnd.SoundCode.Customisation import *
+
+# method to loop through states??? where to put and why....
+def next_mode(curr):
+    # STATES = [{"pause":"pause"}, {"voice":""}, {"Scan+ocr":"ocr"}, {"Scan":"resuming_scan"}, {"dist":"dist"},{"customise":""}]
+    STATES = [{"Scan+ocr": "ocr"}, {"Scan": "Scan_Mode"},{"dist": "dist"}]
+    for y in range(len(STATES)):
+        if list(STATES[y].keys())[0] == curr:
+            index = y+1
+            if index >= len(STATES):
+                play_msg_cache(list(STATES[0].values())[0])
+                print("mode -> ",list(STATES[0].keys())[0])
+                return list(STATES[0].keys())[0]
+            else:
+                play_msg_cache(list(STATES[y+1].values())[0])
+                print("mode ->",list(STATES[y+1].keys())[0])
+                return list(STATES[y+1].keys())[0]
 
 
 # a command should either be in an any active state or specified for each which it is available
@@ -28,22 +45,16 @@ class Command:
 # All commands
 ALL_COMMANDS = []
 # pause
-ALL_COMMANDS.append(Command("all", '1', 'pause', 'pause'))
-# resume (should return to historic state of some kind?
-ALL_COMMANDS.append(Command("all", 'p', 'resuming_scan', 'Scan'))  # should in future be set to historic state
-# ocr (note this must contain the words "scan" and "ocr"
-ALL_COMMANDS.append(Command("all", 'o', 'ocr', 'Scan+ocr'))
-# dist
-ALL_COMMANDS.append(Command("all", '2', 'dist', 'dist'))
-# voice
-ALL_COMMANDS.append(Command("all", 'v', '', 'voice'))
-# scan mode (should be deprecated)
-ALL_COMMANDS.append(Command("all", 's', 'resuming_scan', 'Scan'))
+ALL_COMMANDS.append(Command("all", 'AA', 'pause', 'pause'))
+# resume (should return to historic state of some kind? (return to history state)
+ALL_COMMANDS.append(Command("all", 'AA', 'resuming_scan', 'Scan'))  # should in future be set to historic state
+
+ALL_COMMANDS.append(Command("all", 'A', '','', next_mode))
 
 # volume up
-ALL_COMMANDS.append(Command("all", '3', '', '', audio_driver_up))
+ALL_COMMANDS.append(Command("all", 'B', '', '', audio_driver_up))
 # volume down
-ALL_COMMANDS.append(Command("all", '4', '', '', audio_driver_down))
+ALL_COMMANDS.append(Command("all", 'C', '', '', audio_driver_down))
 
 
 # print("ALL COMMANDS = ",ALL_COMMANDS)
@@ -59,7 +70,8 @@ class ThreadingState:
         self.id = time.time()
         self.debug = False
         self.ALL_COMMANDS = ALL_COMMANDS
-        self.distance_curr = 0
+        self.sysPlatfrom = sys.platform
+        self.histState = None
         # used to resume from pause (not currently needed due to pause command)
         # self.historicSysState = ""
 
@@ -67,29 +79,44 @@ class ThreadingState:
     def commandInterface(self, cmd):
         print("cmd sent is |-> ", cmd)
 
-        # add the commands of the type class
-        filtered_arr = [p for p in self.ALL_COMMANDS if p.state == "all" or p.state == self.sysState]
-        for elt in filtered_arr:
-            if elt.cmd == cmd:
-                # should be no change to sys state in imitate commamnds
-                if elt.execute is not None:
-                    xr = elt.execute
-                    # for next mode button
-                    if xr == next_mode:
-                        self.sysState = xr(self.sysState)
-                    else:
-                        # for things like volume up/down/customise options
-                        xr()
-                    return True
-                else:
-                    # for nomal buttons
-                    play_msg_cache(elt.play)
-                    self.sysState = elt.set_to
-                    print(self.id, "<->state ", self.sysState)
-                    return True
+        # placeholder catch for pause state checking (all states , bypassess command structure for now)
 
-        print("INVALID COMMAND -> throw error")
-        return False
+        if cmd == 'AA':
+            if self.sysState == "pause":
+                # change to resume mode
+                play_msg_cache("resuming_scan")
+                self.sysState = self.histState
+            else:
+                self.histState = self.sysState
+                play_msg_cache('pause')
+                self.sysState = "pause"
+            return True
+        else:
+            print("else triggered")
+            # add the commands of the type class
+            filtered_arr = [p for p in self.ALL_COMMANDS if p.state == "all" or p.state == self.sysState]
+            for elt in filtered_arr:
+                if elt.cmd == cmd:
+                    self.histState = self.sysState
+                    # should be no change to sys state in imitate commamnds
+                    if elt.execute is not None:
+                        xr = elt.execute
+                        # for next mode button
+                        if xr == next_mode:
+                            self.sysState = xr(self.sysState)
+                        else:
+                            # for things like volume up/down/customise options
+                            xr()
+                        return True
+                    else:
+                        # for nomal buttons
+                        play_msg_cache(elt.play)
+                        self.sysState = elt.set_to
+                        print(self.id, "<->state ", self.sysState)
+                        return True
+
+            print("INVALID COMMAND -> throw error")
+            return False
 
     def get_state(self):
         return self.sysState
@@ -100,20 +127,4 @@ class ThreadingState:
     def add_command(self, Command):
         self.ALL_COMMANDS.append(Command)
         return True
-        
-    def set_dist(distance):
-        self.distance_curr = distance
-
-# method to loop through states??? where to put and why....
-def next_mode(curr):
-    STATES = [{"pause":"pause"}, {"voice":""}, {"Scan+ocr":"ocr"}, {"Scan":"resuming_scan"}, {"dist":"dist"},{"customise":""}]
-    for y in range(len(STATES)):
-        if list(STATES[y].keys())[0] == curr:
-            index = y+1
-            if index >= len(STATES):
-                play_msg_cache(list(STATES[0].values())[0])
-                return list(STATES[0].keys())[0]
-            else:
-                play_msg_cache(list(STATES[y+1].values())[0])
-                return list(STATES[y+1].keys())[0]
 

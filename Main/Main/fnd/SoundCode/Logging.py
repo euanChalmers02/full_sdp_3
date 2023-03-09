@@ -22,9 +22,10 @@ def add_log(msg):
 
 def save_logs_to_file():
     f = open(file_name, "r")
-    print(file_name)
+    # print(file_name)
     data = json.load(f)
     f.close()
+
 
     data_new = data + All_logs
     with open(file_name, 'w') as f:

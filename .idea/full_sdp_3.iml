@@ -5,18 +5,10 @@
       <sourceFolder url="file://$MODULE_DIR$/Main" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/test" isTestSource="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="euantestenv (2)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">
     <option name="requirementsPath" value="" />
-  </component>
-  <component name="PyNamespacePackagesService">
-    <option name="namespacePackageFolders">
-      <list>
-        <option value="$MODULE_DIR$/Main/fnd/SoundCode" />
-        <option value="$MODULE_DIR$/Main/fnd" />
-      </list>
-    </option>
   </component>
 </module>

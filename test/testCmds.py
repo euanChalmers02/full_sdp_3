@@ -12,14 +12,14 @@ class scan_scenarios(unittest.TestCase):
         pass
 
     def test_assert_command_change_as_expected(self):
-        state.commandInterface("p")
+        state.commandInterface("AA")
         self.assertEqual(state.get_state(), "pause")
-        state.commandInterface("r")
+        state.commandInterface("AA")
         self.assertEqual(state.get_state(), "Scan")
-        state.commandInterface("o")
-        self.assertEqual(state.get_state(), "Scan+ocr")
-        state.commandInterface("d")
+        state.commandInterface("A")
         self.assertEqual(state.get_state(), "dist")
+        state.commandInterface("A")
+        self.assertEqual(state.get_state(), "Scan+ocr")
         return
 
     def test_assert_handle_unknown_cmd(self):

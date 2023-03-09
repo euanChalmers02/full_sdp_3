@@ -43,7 +43,7 @@ class Sound:
         angle, elev = Sound.setup.find_the_file_two(self.coord)
 
         if angle == 0:
-            print('Bearing == 0. Flagged as \'front\'')
+            # print('Bearing == 0. Flagged as \'front\'')
             self.front = True
 
         # dict for filenames with weird decimals

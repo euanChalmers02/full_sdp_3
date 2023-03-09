@@ -1,12 +1,12 @@
+import sys
 import threading
 import time
 import random
 
-from fnd.SoundCode.Buttons.ButtionChange import console_two
-from fnd.SoundCode.Buttons.sysState import next_mode
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
 
 if __name__ == "__main__":
-    print(next_mode("voice"))
+    save_msg_to_cache("Scan mode activated",'Scan_Mode')
 
     # first iteration of the multi object capture
     # dict_i = {"name":name,"coord":10202}

@@ -3,6 +3,16 @@ from os import walk
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
 import speech_recognition as sr
 import os
+import sys
+
+# TODO: change if on Pi
+os_plat = sys.platform
+
+if os_plat == "darwin":
+    os_plat = "mac"
+else:
+    os_plat = "pi"
+
 # from Logging import *
 
 # engine = pyttsx3.init()
@@ -143,6 +153,7 @@ def customise_number_beeps():
     if ind is not None:
         update_num_beeps(ind)
 
+
 def get_audio_level(os_plat):
     if os_plat == "mac":
         stream = os.popen("osascript -e 'get volume settings'")
@@ -157,48 +168,95 @@ def get_audio_level(os_plat):
     else:
         print("unknown os")
 
-def update_level_to(os_plat,level):
+
+""" ---- FOR MAC ----- 
+    osascript -e'set volume "<<VALUE>>"'
+
+    <<VALUE>> | actual system volume percentage
+        0     |     0
+        1     |     14
+        2     |     29
+        3     |     43
+        4     |     57
+        5     |     71
+        6     |     86
+        7     |     100
+"""
+
+
+def update_level_to(os_plat, level):
     if os_plat == "mac":
-        stream = os.popen("osascript -e'set volume "+str(level/10)+"' ")
+        stream = os.popen("osascript -e'set volume " + str(level) + "' ")
         output = stream.read()
         print(output)
     elif os_plat == "pi":
-        stream = os.popen("amixer set Master "+str(level)+"%")
+        stream = os.popen("amixer set Master " + str(level) + "%")
         output = stream.read()
         print(output)
     else:
         print("unknown os")
 
+
 def audio_driver_up():
-    os_plat = "mac"
-    curr = get_audio_level(os_plat)
-    print("audio level",curr)
 
-    level = int(curr) + 10
+    if os_plat == "pi":
+        curr = get_audio_level(os_plat)
+        print("audio level", curr)
 
-    # check limit
-    if level < 0:
-        level = 0
-    elif level > 100:
-        level = 100
+        level = int(curr) + 10
 
-    print("level = ",level)
-    update_level_to(os_plat, level)
+        # check limit
+        if level < 0:
+            level = 0
+        elif level > 100:
+            level = 100
+
+        print("level = ", level)
+        update_level_to(os_plat, level)
+
+    elif os_plat == "mac":
+        curr = get_audio_level(os_plat)
+        print("audio level", curr)
+
+        level = (int(curr) + 15) // 14
+
+        # check limit
+        if level < 0:
+            level = 0
+        elif level > 100:
+            level = 100
+
+        print("level = ", level)
+        update_level_to(os_plat, level)
+
 
 def audio_driver_down():
-    os_plat = "pi"
-    curr = get_audio_level(os_plat)
-    print("audio level",curr)
+    if os_plat == "pi":
+        curr = get_audio_level(os_plat)
+        print("audio level", curr)
 
-    level = int(curr) - 10
+        level = int(curr) - 10
 
-    # check limit
-    if level < 0:
-        level = 0
-    elif level > 100:
-        level = 100
+        # check limit
+        if level < 0:
+            level = 0
+        elif level > 100:
+            level = 100
 
-    print("level = ",level)
-    update_level_to(os_plat, level)
+        print("level = ", level)
+        update_level_to(os_plat, level)
 
+    elif os_plat == "mac":
+        curr = get_audio_level(os_plat)
+        print("audio level", curr)
 
+        level = (int(curr) - 15) // 14
+
+        # check limit
+        if level < 0:
+            level = 0
+        elif level > 100:
+            level = 100
+
+        print("level = ", level)
+        update_level_to(os_plat, level)

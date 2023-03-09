@@ -35,20 +35,21 @@ from pathlib import Path
 import torch
 import numpy as np
 import threading
-import serial,time
-from Main.OCR_PERCEPTION.basic import *
 
+from Main.OCR_PERCEPTION.basic import *
 # sort the directories names
 from Main.fnd.SoundCode.SoundSys.Sound import Sound
 from Main.fnd.SoundCode.SoundSys.SoundWrapper import *
 from Main.fnd.SoundCode.Logging import *
-from Main.fnd.SoundCode.Buttons.button import *
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
-ser = serial.Serial("/dev/serial0", 115200,timeout=0) # mini UART serial device
-if ser.isOpen() == False:
-    ser.open() # open serial port if not open
-    
+state = get_instate_of_state()
 
+
+if state.sysPlatfrom != "darwin":
+    from Main.fnd.SoundCode.Buttons.button import *
+else:
+    from Main.fnd.SoundCode.Buttons.ButtionChange import *
 
 
 FILE = Path(__file__).resolve()
@@ -63,20 +64,6 @@ from utils.general import (LOGGER, Profile, check_file, check_img_size, check_im
                            increment_path, non_max_suppression, print_args, scale_boxes, strip_optimizer, xyxy2xywh)
 from utils.plots import Annotator, colors, save_one_box
 from utils.torch_utils import select_device, smart_inference_mode
-
-def read_tfluna_data():
-    while True:
-        counter = ser.in_waiting # count the number of bytes of the serial port
-        if counter > 8:
-            bytes_serial = ser.read(9) # read 9 bytes
-            ser.reset_input_buffer() # reset buffer
-
-            if bytes_serial[0] == 0x59 and bytes_serial[1] == 0x59: # check first two bytes
-                distance = bytes_serial[2] + bytes_serial[3]*256 # distance in next two bytes
-                strength = bytes_serial[4] + bytes_serial[5]*256 # signal strength in next two bytes
-                temperature = bytes_serial[6] + bytes_serial[7]*256 # temp in next two bytes
-                temperature = (temperature/8.0) - 256.0 # temp scaling and offset
-                return distance/100.0,strength,temperature
                 
 @smart_inference_mode()
 def run(
@@ -119,12 +106,15 @@ def run(
     if is_url and is_file:
         source = check_file(source)  # download
 
-    # euans adding here
-    thread2 = threading.Thread(target=sound_action)
-    thread3 = threading.Thread(target=buttons_console)
+    # euans adding here (setups up correct buttons depending on platform:
+    if state.sysPlatfrom != "darwin":
+        thread3 = threading.Thread(target=buttons_console)
+    else:
+        thread3 = threading.Thread(target=console_two)
+
     thread3.start()
+    thread2 = threading.Thread(target=sound_action)
     add_log("Thread 3 has been created")
-    arr_sounds = []
 
     # Directories
     save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
@@ -221,12 +211,6 @@ def run(
                     # print('centre of mass')
                     centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
                                       (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
-                    # print(centre_of_mass)
-
-                    distance,strength,temperature = read_tfluna_data() # read values
-                    print('Distance: {0:2.2f} m, Strength: {1:2.0f} / 65535 (16-bit), Chip Temperature: {2:2.1f} C'.\
-                              format(distance,strength,temperature)) # print sample data
-
 
                     o = Sound(centre_of_mass, 4, names[int(c)], True)
 
@@ -326,7 +310,6 @@ def parse_opt():
 
 
 def main(opt):
-    print('hello world')
     add_log("The main function has started :)")
     check_requirements(exclude=('tensorboard', 'thop'))
     run(**vars(opt))

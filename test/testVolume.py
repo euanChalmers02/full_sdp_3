@@ -1,7 +1,7 @@
 import unittest
 
 from Main.fnd.SoundCode.Customisation import *
-from fnd.SoundCode.SoundSys.Sound import Sound
+from Main.fnd.SoundCode.SoundSys.Sound import Sound
 
 obj1 = Sound([245, 188], 2, "toilet_sign", True)
 
