@@ -3,12 +3,25 @@ import threading
 import time
 import random
 
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
 import sys
 
 if __name__ == "__main__":
-    print(sys.path.append("../"))
-    # save_msg_to_cache("Scan mode activated",'Scan_Mode')
+    print("hello world")
+
+
+    text = """Welcome to VisionED Tutorial.
+    Lets Look at what each button does. If you short press button A you will switch to the next mode, 
+    keep clicking to try each mode. A long press will pause or resume the device no matter what mode you are in.
+    Button B short press will adjust volume up and Button C short press will adjust volume down.
+    When you turn on the device it will start in in sign scaning mode.
+    
+    For more info please vist VisionEd dot com slash help.
+    """
+
+    save_msg_to_cache(text, "tutorial")
+
+    play_msg_cache("tutorial")
 
     # first iteration of the multi object capture
     # dict_i = {"name":name,"coord":10202}

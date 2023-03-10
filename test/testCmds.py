@@ -27,8 +27,30 @@ class scan_scenarios(unittest.TestCase):
         res = state.commandInterface("xyxysyws")
         self.assertFalse(res)
 
+
+    # refernced in our ui/ ux doc
     def test_user_story_one(self):
-        pass
+        print("-"*20,"Begin User Story","-"*20)
+        print("User looks around at signs. ")
+
+        print("User switches to distance mode to see how far sign is away from them? ")
+        state.commandInterface("A")
+        print("User mistakenly enters text mode. ")
+        state.commandInterface("A")
+        time.sleep(2)
+        print("User trys again & pauses")
+        state.commandInterface("AA")
+        time.sleep(2)
+        print("User resumes to text mode")
+        state.commandInterface("AA")
+        time.sleep(2)
+        print("User pauses this reading")
+        state.commandInterface("AA")
+        time.sleep(2)
+        print("User turns volume down")
+        state.commandInterface("B")
+
+        return
 
 
 if __name__ == '__main__':

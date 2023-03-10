@@ -2,6 +2,8 @@ from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 from Main.fnd.SoundCode.SoundSys.Sound import Sound
 import serial, time
 
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+
 state = get_instate_of_state()
 
 # ----------------------------FAKE----------------------------------
@@ -22,13 +24,12 @@ class Fake_Sensor:
     def sensor(self):
         x = self.arr_pos[self.index]
         self.index = self.index + 1
-        if self.index > len(self.arr_pos):
+        if self.index >= len(self.arr_pos):
             self.index = 0
         return x
 
 
 # ----------------------------END OF FAKE --------------------------
-
 
 def read_tfluna_data():
     while True:
@@ -59,31 +60,55 @@ def get_dist():
 
     return distance
 
+fs = Fake_Sensor(7, True, 0.5)
 
 # this is the driver code for the distance and should be pointed to by a thread or treated as a state
 def distance_action_or_state():
-    # remove for final implentation
-    fs = Fake_Sensor(7, True, 0.5)
+    # for next mode
 
-    # should keep going until a button is pressed
-    print("state.get_state()  ", state.get_state(), "id is ", state.id)
-    while state.get_state() == "dist":
+    # allows for multiplatform testing
+    if state.sysPlatfrom != "darwin":
+        dist = get_dist()
+    else:
+        dist = fs.sensor()
 
-        # allows for multiplatform testing
-        if state.sysPlatfrom != "darwin":
-            dist = get_dist()
-        else:
-            dist = fs.sensor()
+    # fs.sensor() is the distance sensor response
 
-        # fs.sensor() is the distance sensor response
+    # print('distance got ', dist)
+    # how to play the sound using distance here
 
-        # print('distance got ', dist)
-        # how to play the sound using distance here
+    # this uses the exact middle of the frame that should be calibrated and stored centrally
+    middle = [1280 / 2, 720 / 2]
 
-        # this uses the exact middle of the frame that should be calibrated and stored centrally
-        middle = [1280 / 2, 720 / 2]
+    o = Sound(middle, dist, "", True)
+    o.create_3d()
 
-        o = Sound(middle, dist, "", True)
-        o.create_3d()
-        o.play()
+    state.lock.acquire()
+    o.play()
+    state.lock.release()
 
+
+# def distance_action_or_state():
+#     # remove for final implentation
+#
+#     # should keep going until a button is pressed
+#     print("state.get_state()  ", state.get_state(), "id is ", state.id)
+#     while state.get_state() == "dist":
+#
+#         # allows for multiplatform testing
+#         if state.sysPlatfrom != "darwin":
+#             dist = get_dist()
+#         else:
+#             dist = fs.sensor()
+#
+#         # fs.sensor() is the distance sensor response
+#
+#         # print('distance got ', dist)
+#         # how to play the sound using distance here
+#
+#         # this uses the exact middle of the frame that should be calibrated and stored centrally
+#         middle = [1280 / 2, 720 / 2]
+#
+#         o = Sound(middle, dist, "", True)
+#         o.create_3d()
+#         o.play()
