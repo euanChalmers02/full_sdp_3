@@ -18,6 +18,19 @@ def console_two():
             print(e)
 
 
+# used for testing buttons can be thrown
+def button_thows():
+    list_of_commands_to_send = ["AA","A","A","A","A","B","B","B","C"]
+    sleep_time = 1
+    time.sleep(4)
+    print('buttons throwing sys')
+
+    for x in range(len(list_of_commands_to_send)):
+        cmd = list_of_commands_to_send[x]
+        state.commandInterface(cmd)
+        time.sleep(sleep_time)
+
+
 def pause_wait_action():
     save_logs_to_file()
     while state.get_state() == "pause":

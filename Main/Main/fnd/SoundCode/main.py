@@ -3,10 +3,13 @@ import threading
 import time
 import random
 
+from Main.fnd.SoundCode.Logging import add_log, get_all_logs
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
 import sys
 
 if __name__ == "__main__":
+    add_log("hello world")
+    get_all_logs()
     print("hello world")
 
 

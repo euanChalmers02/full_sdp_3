@@ -59,7 +59,9 @@ ALL_COMMANDS.append(Command("all", 'AA', 'pause', 'pause'))
 # resume (should return to historic state of some kind? (return to history state)
 ALL_COMMANDS.append(Command("all", 'AA', 'resuming_scan', 'Scan'))  # should in future be set to historic state
 
-ALL_COMMANDS.append(Command("all", 'A', '','', next_mode))
+ALL_COMMANDS.append(Command("Scan", 'A', '','', next_mode))
+ALL_COMMANDS.append(Command("Scan+ocr", 'A', '','', next_mode))
+ALL_COMMANDS.append(Command("dist", 'A', '','', next_mode))
 
 # volume up
 ALL_COMMANDS.append(Command("all", 'B', '', '', audio_driver_up))
@@ -79,6 +81,7 @@ class ThreadingState:
         self.sysState = "Scan"
         self.id = time.time()
         self.debug = False
+
         self.ALL_COMMANDS = ALL_COMMANDS
         self.sysPlatfrom = sys.platform
         self.histState = None
