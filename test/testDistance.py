@@ -1,7 +1,7 @@
 import unittest
 
-from Main.Main.fnd.SoundCode.SoundSys.Sound import Sound
-from Main.Main.fnd.SoundCode.SoundSys.SoundWrapper import sound_action
+from Main.fnd.SoundCode.SoundSys.Sound import Sound
+from Main.fnd.SoundCode.SoundSys.SoundWrapper import sound_action
 
 sound_obj = Sound([465, 291], 300, "Arrow.wav" , True)
 

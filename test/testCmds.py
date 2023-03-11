@@ -1,7 +1,7 @@
 import time
 import unittest
 
-from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
 state = get_instate_of_state()
 
