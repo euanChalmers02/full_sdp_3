@@ -44,4 +44,5 @@ jobs:
         
     - name: Test with unittest
       run: |
-        python -m unittest discover -s test -p 'test*.py'
+        cd Main
+        python -m unittest discover -s ../test -p 'test*.py'
