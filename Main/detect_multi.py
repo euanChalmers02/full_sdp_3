@@ -109,7 +109,11 @@ def run(
     if state.sysPlatfrom != "darwin":
         thread3 = threading.Thread(target=buttons_console)
     else:
-        thread3 = threading.Thread(target=console_two)
+        # testing the buttons change
+        if state.debug:
+            thread3 = threading.Thread(target=button_thows)
+        else:
+            thread3 = threading.Thread(target=console_two)
 
     thread3.start()
     thread2 = threading.Thread(target=sound_action)
@@ -218,12 +222,12 @@ def run(
 
 
             if thread2.is_alive() != True and state.get_state() == "Scan":
-                # print("Frame       ",frame_curr.check_frame())
-                if frame_curr.check_frame() is not None:
-                    thread2 = threading.Thread(target=sound_action, args=(frame_curr.check_frame() ,))
+                frame_return = frame_curr.check_frame()
+                if frame_return is not None:
+                    thread2 = threading.Thread(target=sound_action, args=(frame_return ,))
                     state.threadX = thread2
                     thread2.start()
-                    sound_played(frame_curr.check_frame().get_name())
+                    sound_played(frame_return.get_name())
 
             frame_curr = Frame()
 
