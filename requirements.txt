@@ -1,0 +1,11 @@
+flake8
+pytest 
+pyttsx3 
+librosa 
+sounddevice 
+numpy
+scipy 
+pyaudio 
+opencv-python 
+speechRecognition 
+serial
