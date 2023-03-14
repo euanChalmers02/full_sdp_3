@@ -19,16 +19,35 @@ def console_two():
 
 
 # used for testing buttons can be thrown
-def button_thows():
-    list_of_commands_to_send = ["AA","A","A","A","A","B","B","B","C"]
-    sleep_time = 1
-    time.sleep(4)
-    print('buttons throwing sys')
+# def button_thows():
+#     list_of_commands_to_send = ["AA","A","A","A","A","B","B","B","C"]
+#     sleep_time = 1
+#     time.sleep(4)
+#     print('buttons throwing sys')
+#
+#     for x in range(len(list_of_commands_to_send)):
+#         cmd = list_of_commands_to_send[x]
+#         state.commandInterface(cmd)
+#         time.sleep(sleep_time)
 
-    for x in range(len(list_of_commands_to_send)):
-        cmd = list_of_commands_to_send[x]
-        state.commandInterface(cmd)
-        time.sleep(sleep_time)
+# currently being used as a backup system for the battery tests
+def button_thow():
+    PATH = os.path.abspath(__file__)
+    ROOT = (PATH.split("fnd"))
+    ROOT = ROOT[0] + "fnd/" + "SoundCode/logs"
+    filename = ROOT + "/battery.txt"
+
+    start = time.time()
+    flag = True
+
+    while flag:
+        # writes
+        uptime = time.time() - start
+        with open(filename, 'w') as f:
+            f.write('uptime = ' + str(uptime))
+
+        print('updated')
+        time.sleep(30)
 
 
 def pause_wait_action():
