@@ -7,7 +7,7 @@ README->
 <h1>Features</h1>
 <ul>
 <li>Text to speech</li>
-<li>...add...</li>
+<li>...add all features...</li>
 </ul>
 
 
