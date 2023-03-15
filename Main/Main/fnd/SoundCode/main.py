@@ -8,9 +8,15 @@ from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg
 import sys
 
 if __name__ == "__main__":
-    add_log("hello world")
-    get_all_logs()
+    save_msg_to_cache("Arrow Right","Arrow_0")
+    save_msg_to_cache("Arrow Up","Arrow_1")
+    save_msg_to_cache("Arrow Down", "Arrow_3")
+    save_msg_to_cache("Arrow Left", "Arrow_2")
+
     print("hello world")
+
+    if " " in "no touch":
+        print("test")
 
 
     text = """Welcome to VisionED Tutorial.
@@ -21,10 +27,10 @@ if __name__ == "__main__":
     
     For more info please vist VisionEd dot com slash help.
     """
-
-    save_msg_to_cache(text, "tutorial")
-
-    play_msg_cache("tutorial")
+    #
+    # save_msg_to_cache(text, "tutorial")
+    #
+    # play_msg_cache("tutorial")
 
     # first iteration of the multi object capture
     # dict_i = {"name":name,"coord":10202}
