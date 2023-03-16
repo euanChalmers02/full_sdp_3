@@ -1,15 +1,8 @@
-import sys
-import threading
-import time
-import random
-
-from Main.fnd.SoundCode.Logging import add_log, get_all_logs
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
-import sys
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
 
 if __name__ == "__main__":
-    save_msg_to_cache("Arrow Right","Arrow_0")
-    save_msg_to_cache("Arrow Up","Arrow_1")
+    save_msg_to_cache("Arrow Right", "Arrow_0")
+    save_msg_to_cache("Arrow Up", "Arrow_1")
     save_msg_to_cache("Arrow Down", "Arrow_3")
     save_msg_to_cache("Arrow Left", "Arrow_2")
 
@@ -17,7 +10,6 @@ if __name__ == "__main__":
 
     if " " in "no touch":
         print("test")
-
 
     text = """Welcome to VisionED Tutorial.
     Lets Look at what each button does. If you short press button A you will switch to the next mode, 
@@ -38,7 +30,6 @@ if __name__ == "__main__":
     # print(L)
     # xr = list({v['name']:v for v in L}.values())
     # print(xr)
-
 
     # class StateManger(object):
     #     _instance = None
@@ -71,15 +62,9 @@ if __name__ == "__main__":
     # print(lg.update_state("scan+"))
     # print(lg.sysState)
 
-
-
-
-
     # how to fake setup the state -> using another thread??
 
-
     #     if closer = true then will reduce else will get further away until limit reached
-
 
     # text = "Hello world this is xyz"
     # textToSpeech(text)

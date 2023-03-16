@@ -3,6 +3,7 @@ import os
 import json
 import sys
 from enum import Enum
+from numpy import random
 
 
 class TypeLogs(Enum):
@@ -28,8 +29,8 @@ All_logs = []
 start_time = time.time()
 
 
-def add_log(msg, type=TypeLogs.GENERAL):
-    Log(msg, type)
+def add_log(msg, typeArg=TypeLogs.GENERAL):
+    Log(msg, typeArg)
 
 
 def save_logs_to_file():
@@ -46,9 +47,6 @@ def save_logs_to_file():
         print('saved file')
     except:
         print("no files to save")
-
-
-from numpy import random
 
 
 class Log:
@@ -82,15 +80,15 @@ def linting():
 
     arr_all = []
 
-    PATH = os.path.abspath(__file__)
-    ROOT = (PATH.split("Main"))[0] + "Main/Main/fnd/SoundCode/logs"
+    PATH_local = os.path.abspath(__file__)
+    ROOT_local = (PATH.split("Main"))[0] + "Main/Main/fnd/SoundCode/logs"
     file_name = ROOT + "/linting.json"
     f = open(file_name, "r")
     data = json.load(f)
     f.close()
     vrl = len(data)
-    previous = data[vrl-1]["id"]
-    id = previous + 1
+    previous = data[vrl - 1]["id"]
+    id_r = previous + 1
 
     for y in range(len(output)):
         try:
@@ -100,7 +98,7 @@ def linting():
             code = code.strip("[")
             third = second.split("]")[1]
 
-            dict_temp = {"id":id,"file": first, "code": code, "error": third}
+            dict_temp = {"id": id_r, "file": first, "code": code, "error": third}
             arr_all.append(dict_temp)
         except:
             print("misss")

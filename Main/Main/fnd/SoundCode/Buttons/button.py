@@ -1,5 +1,6 @@
 import RPi.GPIO as GPIO
 import time
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
 # set up GPIO pins
 GPIO.setmode(GPIO.BOARD)
@@ -17,11 +18,11 @@ GPIO.setup(button3_pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 # define button state variables
 button1_state = False
 
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 state = get_instate_of_state()
 
 # define long press time in seconds
 long_press_time = 2
+
 
 def switchOnOff(channel):
     global start
@@ -38,7 +39,7 @@ def switchOnOff(channel):
         else:
             print("button1 is not long pressed")
             state.commandInterface('A')
-            
+
 
 def increaseVolume(channel):
     global start
@@ -55,7 +56,8 @@ def increaseVolume(channel):
         else:
             print("button1 is not long pressed")
             state.commandInterface('B')
-            
+
+
 def decreaseVolume(channel):
     global start
     global end
@@ -80,5 +82,5 @@ def buttons_console():
     GPIO.add_event_detect(button2_pin, GPIO.FALLING, callback=increaseVolume, bouncetime=300)
     GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=decreaseVolume, bouncetime=300)
     message = input("Press enter to quit\n\n")
+    print(message)
     GPIO.cleanup()
-
