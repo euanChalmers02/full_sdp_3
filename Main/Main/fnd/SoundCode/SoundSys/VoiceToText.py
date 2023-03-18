@@ -1,7 +1,7 @@
 import speech_recognition as sr
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
-from Main.fnd.SoundCode.Customisation import *
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import *
+from Main.Main.fnd.SoundCode.Customisation import *
+from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
 state = get_instate_of_state()
 

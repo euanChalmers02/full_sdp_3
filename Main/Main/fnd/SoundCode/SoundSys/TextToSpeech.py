@@ -31,7 +31,10 @@ def play_msg_cache(file_name):
     if '.wav' not in file_name:
         file_name = file_name + '.wav'
 
-    [y, sr] = librosa.load(MSG_CACHE_PATH + "/" + file_name, sr=48000)
-    # duration = librosa.get_duration(filename=MSG_CACHE_PATH + "/" + file_name) * 1000  # value in ms
+    try:
+        [y, sr] = librosa.load(MSG_CACHE_PATH + "/" + file_name, sr=48000)
+        # duration = librosa.get_duration(filename=MSG_CACHE_PATH + "/" + file_name) * 1000  # value in ms
 
-    sd.play(y, sr, blocking=True)
+        sd.play(y, sr, blocking=True)
+    except FileNotFoundError:
+        return

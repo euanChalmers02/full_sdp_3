@@ -2,9 +2,9 @@ import time
 import threading
 import sys
 
-from Main.fnd.SoundCode.Logging import add_log
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
-from Main.fnd.SoundCode.Customisation import *
+from Main.Main.fnd.SoundCode.Logging import add_log
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.Main.fnd.SoundCode.Customisation import *
 
 
 # method to loop through states??? where to put and why....

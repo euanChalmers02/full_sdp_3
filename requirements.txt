@@ -5,7 +5,8 @@ librosa
 sounddevice 
 numpy
 scipy 
-pyaudio 
+pyaudio
+pytesseract
 opencv-python 
 speechRecognition 
 serial

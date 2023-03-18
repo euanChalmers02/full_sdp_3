@@ -1,8 +1,8 @@
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
-from Main.fnd.SoundCode.SoundSys.Sound import Sound
-import serial, time
+from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.Main.fnd.SoundCode.SoundSys.Sound import Sound
+import serial
 
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
 
 state = get_instate_of_state()
 

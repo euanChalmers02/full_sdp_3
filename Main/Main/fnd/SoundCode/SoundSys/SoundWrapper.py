@@ -1,9 +1,9 @@
 import pyttsx3
 
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 state = get_instate_of_state()
-from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.Main.fnd.SoundCode.Buttons.ButtonChange import *
 
 
 # -- customisable --
