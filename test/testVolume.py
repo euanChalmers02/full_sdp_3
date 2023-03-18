@@ -69,14 +69,14 @@ class sound_sys_tests(unittest.TestCase):
         # play_msg_cache('Lifts.wav')
         assert(int(get_audio_level("mac"))== 57)
 
-    # def test_with_sound2(self):
-    #     # given
-    #     update_level_to("mac", 3)
-    #     play_msg_cache('Lifts.wav')
-    #     # when
-    #     audio_driver_up()
-    #     audio_driver_up()
-    #     audio_driver_up()
-    #     # then
-    #     play_msg_cache('Lifts.wav')
-    #     assert (int(get_audio_level("mac"))== 86)
+    def test_with_sound2(self):
+        # given
+        update_level_to("mac", 0)
+        play_msg_cache('Lifts.wav')
+        # when
+        audio_driver_up()
+        audio_driver_up()
+        audio_driver_up()
+        # then
+        play_msg_cache('Lifts.wav')
+        assert (int(get_audio_level("mac"))== 43)
