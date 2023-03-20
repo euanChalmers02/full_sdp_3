@@ -43,3 +43,7 @@ jobs:
       run: |
         cd Main
         python -m unittest discover -s test -p 'test*.py'
+    - name: Compute code coverage
+      run: |
+        coverage run -m unittest discover -s test -p 'test*.py'
+        coverage html -i
