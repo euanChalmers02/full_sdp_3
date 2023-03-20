@@ -1,35 +1,34 @@
-import sys
 import time
-import sounddevice as sd
 import threading
+import sys
 
-from Main.fnd.SoundCode.Logging import add_log
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
-from Main.fnd.SoundCode.Customisation import *
+from Main.Main.fnd.SoundCode.Logging import add_log
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
+from Main.Main.fnd.SoundCode.Customisation import *
 
 
 # method to loop through states??? where to put and why....
 def next_mode(curr):
-    # STATES = [{"pause":"pause"}, {"voice":""}, {"Scan+ocr":"ocr"}, {"Scan":"resuming_scan"}, {"dist":"dist"},{"customise":""}]
-    STATES = [{"Scan+ocr": "ocr"}, {"Scan": "Scan_Mode"},{"dist": "dist"}]
+    # STATES = [{"pause":"pause"}, {"voice":""}, {"Scan+ocr":"ocr"}, {"Scan":"resuming_scan"}, {"dist":"dist"},
+    # {"customise":""}]
+    STATES = [{"Scan+ocr": "ocr"}, {"Scan": "Scan_Mode"}, {"dist": "dist"}]
     for y in range(len(STATES)):
         if list(STATES[y].keys())[0] == curr:
-            index = y+1
+            index = y + 1
             if index >= len(STATES):
-                # play_msg_cache(list(STATES[0].values())[0])
-                print("mode -> ",list(STATES[0].keys())[0])
+                print("mode -> ", list(STATES[0].keys())[0])
                 return list(STATES[0].keys())[0]
             else:
-                # play_msg_cache(list(STATES[y+1].values())[0])
-                print("mode ->",list(STATES[y+1].keys())[0])
-                return list(STATES[y+1].keys())[0]
+                print("mode ->", list(STATES[y + 1].keys())[0])
+                return list(STATES[y + 1].keys())[0]
 
 
 def get_audio(ste):
-    STATES = [{"Scan+ocr": "ocr"}, {"Scan": "Scan_Mode"},{"dist": "dist"}]
+    STATES = [{"Scan+ocr": "ocr"}, {"Scan": "Scan_Mode"}, {"dist": "dist"}]
     for y in range(len(STATES)):
         if list(STATES[y].keys())[0] == ste:
             return list(STATES[y].values())[0]
+
 
 # a command should either be in an any active state or specified for each which it is available
 class Command:
@@ -53,20 +52,17 @@ class Command:
 
 # New buttons will be bnm
 # All commands
-ALL_COMMANDS = []
-# pause
-ALL_COMMANDS.append(Command("all", 'AA', 'pause', 'pause'))
-# resume (should return to historic state of some kind? (return to history state)
-ALL_COMMANDS.append(Command("all", 'AA', 'resuming_scan', 'Scan'))  # should in future be set to historic state
+ALL_COMMANDS = [Command("all", 'AA', 'pause', 'pause'), Command("all", 'AA', 'resuming_scan', 'Scan'),
+                Command("Scan", 'A', '', '', next_mode), Command("Scan+ocr", 'A', '', '', next_mode),
+                Command("dist", 'A', '', '', next_mode), Command("all", 'B', '', '', audio_driver_up),
+                Command("all", 'C', '', '', audio_driver_down)]
 
-ALL_COMMANDS.append(Command("Scan", 'A', '','', next_mode))
-ALL_COMMANDS.append(Command("Scan+ocr", 'A', '','', next_mode))
-ALL_COMMANDS.append(Command("dist", 'A', '','', next_mode))
+
+# pause
+# resume (should return to historic state of some kind? (return to history state))
 
 # volume up
-ALL_COMMANDS.append(Command("all", 'B', '', '', audio_driver_up))
 # volume down
-ALL_COMMANDS.append(Command("all", 'C', '', '', audio_driver_down))
 
 
 # print("ALL COMMANDS = ",ALL_COMMANDS)
@@ -105,6 +101,7 @@ class ThreadingState:
             else:
                 self.histState = self.sysState
                 self.lock.acquire()
+                add_log("activity log-> pause")
                 play_msg_cache('pause')
                 self.lock.release()
                 self.sysState = "pause"
@@ -122,7 +119,7 @@ class ThreadingState:
 
                         # for next mode button
                         if xr == next_mode:
-                            print("current state of dist thread is...",)
+                            print("current state of dist thread is...", )
                             d = xr(self.sysState)
 
                             # so nothing else can happen??
@@ -135,7 +132,7 @@ class ThreadingState:
                         else:
                             # for things like volume up/down/customise options
                             xr()
-                        add_log("activity log->"+str(self.sysState))
+                        add_log("activity log->" + str(self.sysState))
                         return True
                     else:
                         # for nomal buttons
@@ -144,11 +141,11 @@ class ThreadingState:
                         play_msg_cache(elt.play)
                         self.lock.release()
                         print(self.id, "<->state ", self.sysState)
-                        add_log("activity log->"+self.sysState)
+                        add_log("activity log->" + self.sysState)
                         return True
 
             print("INVALID COMMAND -> throw error")
-            add_log("activity log->"+self.sysState)
+            add_log("activity log->" + self.sysState)
             return False
 
     def get_state(self):
@@ -157,15 +154,12 @@ class ThreadingState:
     def set_state(self, cnd):
         self.sysState = cnd
 
-    def add_command(self, Command):
-        self.ALL_COMMANDS.append(Command)
+    def add_command(self, cmdArg):
+        self.ALL_COMMANDS.append(cmdArg)
         return True
 
     # def play_snd_wrapper(self,o):
     #     while self.threadX.is_alive():
     #         time.sleep(0.00000000005)
 
-        # play_msg_cache(get_audio(o))
-
-
-
+    # play_msg_cache(get_audio(o))

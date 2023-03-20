@@ -1,7 +1,7 @@
 # OCR commands to read out full text??
 import pyttsx3
-from Main.fnd.SoundCode.Buttons.ButtionChange import *
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.Main.fnd.SoundCode.Buttons.ButtonChange import *
+from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 state = get_instate_of_state()
 
 
@@ -42,7 +42,7 @@ class OCR:
         print("current txt->speech ", self.text)
 
         self.engine.say(self.text)
-        self.engine.startLoop()
+        # self.engine.startLoop()
 
         print("finsihed")
 

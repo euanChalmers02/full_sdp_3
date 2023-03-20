@@ -97,6 +97,9 @@ class Setup:
             counter = counter + 1
             self.all_angle_ver.append(ele_list_neg[counter])
 
+        print(self.all_angles_hoz)
+        print(self.all_angle_ver)
+
     # creates array for all horizontal angle values
     def __compute_horizontal_vals(self):
         split_h = self.DEFAULT_CAMERA_WIDTH / len(self.all_angles_hoz)
@@ -113,9 +116,6 @@ class Setup:
         for y in range(len(self.all_angle_ver)):
             self.pixels_v.append(round(counter_v))
             counter_v = counter_v + split_v
-
-        # print(self.all_angle_ver)
-        # print(self.all_angles_hoz)
 
     # find closest values for horizontal and vertical angles
     def find_the_file_two(self, coord):

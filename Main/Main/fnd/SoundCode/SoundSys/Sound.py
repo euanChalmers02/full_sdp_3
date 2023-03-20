@@ -4,17 +4,17 @@ from scipy import signal
 import sounddevice as sd
 import os
 
-from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
 state = get_instate_of_state()
 
 # adjustable output parameters (add these to the setup class??)
-from Main.fnd.SoundCode.SoundSys.Setup import *
+from Main.Main.fnd.SoundCode.SoundSys.Setup import *
 
 # -- customisable --
 beep_pause = 800  # ms (can we standardise these)
 beep_duration = 0.3  # sec
-beep_type = 'beep-07a.wav'
+beep_type = 'beep-10.wav'
 
 PATH = os.path.abspath(__file__)
 ROOT = (PATH.split("Main"))[0] + "Main/Main/fnd/"
@@ -107,10 +107,10 @@ class Sound:
             return 400
             # If the distance is between 20 and 10 cm, we will beep four times a second
         elif self.distance < 1 and self.distance >= 0.5:
-            return 100
+            return 250
             # If the distance is smaller than 10 cm, we will beep constantly
         else:
-            return 100
+            return 200
 
     def convert_distance_freq(self):
         if self.distance > 8:
@@ -122,10 +122,10 @@ class Sound:
             return 1.25
             # If the distance is between 30 and 20 cm, we will beep every twice a second
         elif self.distance < 3 and self.distance >= 1:
-            return 1.5
+            return 1.4
             # If the distance is between 20 and 10 cm, we will beep four times a second
         elif self.distance < 1 and self.distance >= 0.5:
-            return 1.6
+            return 1.5
             # If the distance is smaller than 10 cm, we will beep constantly
         else:
-            return 1.75
+            return 1.6

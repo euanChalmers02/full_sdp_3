@@ -1,6 +1,6 @@
 import json
 from os import walk
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
+from Main.Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache, play_msg_cache
 import speech_recognition as sr
 import os
 import sys

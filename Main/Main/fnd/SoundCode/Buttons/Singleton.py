@@ -1,4 +1,5 @@
-from Main.fnd.SoundCode.Buttons.sysState import ThreadingState
+# from Main.PinTesting import check_system
+from Main.Main.fnd.SoundCode.Buttons.sysState import ThreadingState
 
 instance = None
 state = ""
@@ -9,6 +10,7 @@ def get_instate_of_state():
     global state
 
     if instance is None:
+        # check_system()
         print("new init called")
         state = ThreadingState()
         instance = True
