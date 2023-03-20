@@ -20,8 +20,8 @@ class testSound(unittest.TestCase):
     def test_find_the_file_two_1(self):
         val1, val2 = testSound.setup.find_the_file_two([0,0])
 
-        assert(0, val1)
-        assert(0, val2)
+        assert(0== val1)
+        assert(0==val2)
 
     def test_find_the_file_two_2(self):
         val1, val2 = testSound.setup.find_the_file_two([640,360])
