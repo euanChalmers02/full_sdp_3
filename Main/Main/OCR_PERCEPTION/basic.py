@@ -1,8 +1,8 @@
 import pytesseract
 import cv2
 import os
-pytesseract.pytesseract.tesseract_cmd= '/Users/neo/opt/anaconda3/lib/python3.9/site-packages/tesseract'
-from Main.fnd.SoundCode.SoundSys.OCR import *
+pytesseract.pytesseract.tesseract_cmd= '/usr/local/bin/tesseract'
+from Main.Main.fnd.SoundCode.SoundSys.OCR import *
 
 PATH = os.path.abspath(__file__)
 ROOT = PATH.split("Main")

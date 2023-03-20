@@ -55,17 +55,17 @@ class testOCR(unittest.TestCase):
     #     rx = OCR(obama_Speech)
 
     def test_text_size_1(self):
-        text = get_text("test_images/size1.jpeg")
+        text = get_text("test/test_images/size1.jpeg")
 
         self.assertEqual("OXFORD\n“STREET WI\n\nCITY OF WESTMINSTER\n\n", text)
 
     def test_font_1(self):
-        text = get_text("test_images/font1.png")
+        text = get_text("test/test_images/font1.png")
 
         self.assertEqual("THE UNIVERSITY\nof EDINBURGH\n\n", text)
 
     def test_font_2(self):
-        text = get_text("test_images/font2.jpeg")
+        text = get_text("test/test_images/font2.jpeg")
 
         # should really regex it, but no time
         self.assertEqual("| Wandered Lonely“as) a) Cloud\n\n~William)Wordsworth\n\n", text)
