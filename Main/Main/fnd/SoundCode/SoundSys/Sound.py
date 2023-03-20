@@ -4,7 +4,7 @@ from scipy import signal
 import sounddevice as sd
 import os
 
-from Main.Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 
 state = get_instate_of_state()
 
