@@ -49,7 +49,7 @@ state = get_instate_of_state()
 if state.sysPlatfrom != "darwin":
     from Main.fnd.SoundCode.Buttons.button import *
 else:
-    from Main.fnd.SoundCode.Buttons.ButtionChange import *
+    from Main.fnd.SoundCode.Buttons.ButtonChange import *
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory
