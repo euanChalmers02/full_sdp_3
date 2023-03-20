@@ -107,7 +107,7 @@ class Sound:
             return 400
             # If the distance is between 20 and 10 cm, we will beep four times a second
         elif self.distance < 1 and self.distance >= 0.5:
-            return 200
+            return 250
             # If the distance is smaller than 10 cm, we will beep constantly
         else:
             return 200
