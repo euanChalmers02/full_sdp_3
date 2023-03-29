@@ -1,24 +1,73 @@
-from Main.fnd.SoundCode.SoundSys.TextToSpeech import save_msg_to_cache
+import json
+import os
+
+from Main.fnd.SoundCode.SoundSys.TextToSpeech import *
 
 if __name__ == "__main__":
-    save_msg_to_cache("Arrow Right", "Arrow_0")
-    save_msg_to_cache("Arrow Up", "Arrow_1")
-    save_msg_to_cache("Arrow Down", "Arrow_3")
-    save_msg_to_cache("Arrow Left", "Arrow_2")
+    from Main.fnd.SoundCode.SoundSys.OCR import *
 
-    print("hello world")
+    text = " Hello world " \
+           "" \
+           "" \
+           ""
+    OCR(text)
 
-    if " " in "no touch":
-        print("test")
 
-    text = """Welcome to VisionED Tutorial.
-    Lets Look at what each button does. If you short press button A you will switch to the next mode, 
-    keep clicking to try each mode. A long press will pause or resume the device no matter what mode you are in.
-    Button B short press will adjust volume up and Button C short press will adjust volume down.
-    When you turn on the device it will start in in sign scaning mode.
-    
-    For more info please vist VisionEd dot com slash help.
-    """
+    OCR("this is a second one")
+    # save_msg_to_cache("Vision Eddd is a headset for visually impaired users to identify the common signs in their environment. VisionED detected what the sign is and then orientates the user using spatial audio. VisionED headset has 3 modes","video")
+    # play_msg_cache('video')
+
+
+    # # # repsonsive test handling system
+    # PATH = os.path.abspath(__file__)
+    # ROOT = (PATH.split("fnd"))
+    # ROOT = ROOT[0] + "fnd/" + "SoundCode/logs"
+    # file_name = ROOT + "/log_resposiveness.json"
+    # f = open(file_name, "r")
+    # # print(f.read())
+    #
+    # data = f.read()
+    # data = data.split("}")
+    #
+    # arr_to_handle = []
+    #
+    # for x in data:
+    #     try:
+    #         dict_i = {}
+    #         x = x[2:]
+    #         x = x.split(",")
+    #         for et in x:
+    #             # print(et)
+    #             et = et.split(":")
+    #             name = et[0]
+    #             name = name.replace("\'","")
+    #             val = et[1]
+    #             val = val.replace("\'", "")
+    #             dict_i[name] = val
+    #
+    #         arr_to_handle.append(dict_i)
+    #     except:
+    #         print("skip")
+    #
+    # arr_to_handle_two = []
+    # for y in arr_to_handle:
+    #     try:
+    #         if "<TypeLogs.TESTING" in y[" type"]:
+    #             arr_to_handle_two.append(y)
+    #     except:
+    #         print("skip")
+    #
+    # for elt in arr_to_handle_two:
+    #     print(elt)
+
+    # for z in range(len(arr_to_handle_two)):
+    #     time = float(arr_to_handle_two[z+1][' timestamp']) - float(arr_to_handle_two[z][' timestamp'])
+    #     print(str(arr_to_handle_two[z][' msg']) ,"time to action ",time)
+    #     z = z + 2
+
+    print("*"*100)
+
+
     #
     # save_msg_to_cache(text, "tutorial")
     #

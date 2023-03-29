@@ -53,8 +53,47 @@ class Frame:
 
         elif len(self.dict_of_sounds) == 1:
             x = next(iter(self.dict_of_sounds.items()))
-            print(x[1])
+            # print(x[1])
+
+
             return x[1]
 
         else:
             return None
+
+    def get_all(self):
+        return self.dict_of_sounds.keys()
+
+
+frames = []
+max_held = 3
+
+def add_to_held_frame(fra):
+    if len(frames) > max_held:
+        # removes the oldest frame
+        frames.pop(0)
+        frames.append(fra)
+        # print(len(frames))
+    else:
+        frames.append(fra)
+
+def check_if_in_all_held():
+    can_play = []
+    all_objects = []
+    for x in frames:
+        for e in x.get_all():
+            all_objects.append(e)
+
+    # print(all_objects)
+
+    rt = set(all_objects)
+    for elt in rt:
+        occ = all_objects.count(elt)
+        # print("count of -> ",elt,"    ",occ)
+        if occ >= max_held:
+            can_play.append(elt)
+
+        # print("can_play",can_play)
+    return can_play
+
+

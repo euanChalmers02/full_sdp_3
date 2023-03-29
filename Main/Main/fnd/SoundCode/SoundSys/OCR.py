@@ -31,20 +31,13 @@ class OCR:
         if self.text == "":
             return
 
-        self.engine = pyttsx3.init()
+        #
 
-        self.engine.connect('started-word', self.onWord)
-        # self.engine.connect('finished-utterance', self.onEnd)
-
-        self.text = self.text.split(" ")
-        self.text = self.text[self.word_num:]
-        self.text = ' '.join(self.text)
-        print("current txt->speech ", self.text)
-
-        self.engine.say(self.text)
-        self.engine.startLoop()
-
+        engine = pyttsx3.init()
+        engine.say(self.text)
+        engine.runAndWait()
         print("finsihed")
+
 
         return True
 

@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
+from Main.fnd.SoundCode.Logging import add_log, TypeLogs
 
 # set up GPIO pins
 GPIO.setmode(GPIO.BOARD)
@@ -34,10 +35,12 @@ def switchOnOff(channel):
         elapsed = end - start
         print(elapsed)
         if elapsed > long_press_time:
-            print("button1 is long pressed")
+            add_log("Button AA pressed", TypeLogs.TESTING)
+            print("button AA is long pressed")
             state.commandInterface('AA')
         else:
-            print("button1 is not long pressed")
+            add_log("Button A pressed", TypeLogs.TESTING)
+            print("button A is not long pressed")
             state.commandInterface('A')
 
 
@@ -51,10 +54,12 @@ def increaseVolume(channel):
         elapsed = end - start
         print(elapsed)
         if elapsed > long_press_time:
-            print("button1 is long pressed")
+            add_log("Button BB pressed", TypeLogs.TESTING)
+            print("button BB is long pressed")
             state.commandInterface('BB')
         else:
-            print("button1 is not long pressed")
+            add_log("Button B pressed", TypeLogs.TESTING)
+            print("button B is not long pressed")
             state.commandInterface('B')
 
 
@@ -68,10 +73,12 @@ def decreaseVolume(channel):
         elapsed = end - start
         print(elapsed)
         if elapsed > long_press_time:
-            print("button3 is long pressed")
+            print("button CC is long pressed")
+            add_log("Button CC pressed", TypeLogs.TESTING)
             state.commandInterface('CC')
         else:
-            print("button3 is short pressed")
+            add_log("Button C pressed", TypeLogs.TESTING)
+            print("button CC is short pressed")
             state.commandInterface('C')
 
 

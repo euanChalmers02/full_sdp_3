@@ -16,6 +16,7 @@ def sound_action(snd):
     # add the command logic here if the multithreading works
     # check for if pause while beeping
     if state.get_state() == "Scan":
+        add_log("Snd bb-"+str(snd.coord)+"file"+str(snd.file))
         o = snd
         print(o.get_name())
         print(o)

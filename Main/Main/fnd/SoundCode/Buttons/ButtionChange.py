@@ -14,6 +14,7 @@ def console_two():
     while flag:
         try:
             cmd = input('>')
+            add_log("Button "+str(cmd)+" pressed", TypeLogs.TESTING)
             state.commandInterface(cmd)
         except EOFError as e:
             print(e)

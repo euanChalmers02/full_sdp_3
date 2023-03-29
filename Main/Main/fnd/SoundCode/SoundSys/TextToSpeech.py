@@ -3,7 +3,6 @@ import librosa
 import sounddevice as sd
 import os
 
-
 PATH = os.path.abspath(__file__)
 ROOT = PATH.split("Main")
 MSG_CACHE_PATH = ROOT[0] + "Main/Main/fnd/recorded_msg"
@@ -19,6 +18,7 @@ def save_msg_to_cache(input_text, file_name):
 
     print('written to...', MSG_CACHE_PATH + "/" + file_name)
     engine = pyttsx3.init()
+    engine.setProperty('rate',150)
     engine.save_to_file(input_text, str(MSG_CACHE_PATH + "/" + file_name))
     engine.runAndWait()
 

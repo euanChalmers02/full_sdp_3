@@ -13,13 +13,14 @@ class TypeLogs(Enum):
     GENERAL = 1
     OCR = 1
     THREADING = 1
+    TESTING = 2
 
 
 PATH = os.path.abspath(__file__)
 ROOT = (PATH.split("fnd"))
 ROOT = ROOT[0] + "fnd/" + "SoundCode/logs"
 
-file_name = ROOT + "/log_all.json"
+file_name = ROOT + "/log_resposiveness.json"
 
 machine = os.path.abspath(__file__)
 machine = machine.split("/")
@@ -30,31 +31,25 @@ start_time = time.time()
 
 
 def add_log(msg, typeArg=TypeLogs.GENERAL):
-    Log(msg, typeArg)
-
+    x = Log(msg, typeArg)
+    with open(file_name, "a") as myfile:
+        myfile.write(","+str(x.get_item()))
 
 def save_logs_to_file():
-    try:
-        f = open(file_name, "r")
-        # print(file_name)
-        data = json.load(f)
-        f.close()
-
-        data_new = data + All_logs
-        with open(file_name, 'w') as f:
-            json.dump(data_new, f)
-
-        print('saved file')
-    except:
-        print("no files to save")
+    pass
+    # data_new = All_logs
+    # with open(file_name, 'w') as f:
+    #     json.dump(data_new, f)
+    #
+    # print('saved file')
 
 
 class Log:
-    def __init__(self, msg, type):
+    def __init__(self, msg, type_r):
         self.timestamp = time.time()
         self.msg = msg
         self.num = str(round(start_time)) + "_" + str(len(All_logs) + 1)
-        self.type = type
+        self.type = type_r
         self.run = random.randint(1000000)
         # need to change the run num here
         self.dict_item = {"num": str(self.run) + "_" + self.num, "msg": self.msg, "timestamp": self.timestamp,
@@ -63,8 +58,8 @@ class Log:
         All_logs.append(self.dict_item)
 
     def get_item(self):
-        print(self.dict_item)
-
+        # print(self.dict_item)
+        return self.dict_item
 
 def get_all_logs():
     print(All_logs)

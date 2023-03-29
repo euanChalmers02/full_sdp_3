@@ -14,6 +14,9 @@ def image_to_text(img):
     # image = cv2.imread(image_path)
 
     text = pytesseract.image_to_string(img)
+
+
+
     # print(text)
     # this will create the text object and should play the identified text (allowing for pauses etc)
     OCR(text)

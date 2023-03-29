@@ -87,8 +87,6 @@ def arrow_direction(dir_vec):
 # returns direction code: Right: 0, Up: 1, Left: 2, Down: 3
 # feature_plot_radius: larger radius reduces the weight of close features (overlap)
 def arrow_heading_detection(img, feature_plot_radius=3):
-    print("function called")
-    print(img)
 
     # Convert the image to grayscale
     gray = np.asarray(img, np.uint8)
@@ -111,6 +109,9 @@ def arrow_heading_detection(img, feature_plot_radius=3):
     corners = cv2.goodFeaturesToTrack(out, 25, 0.1, 1)
 
     # Plot feature points as circles on black screen.
+    if corners is None:
+        return -1
+    
     for corner in corners:
         features = cv2.circle(black, (int(corner[0][0]), int(corner[0][1])), 3, (255, 255, 255), feature_plot_radius)
 
@@ -143,7 +144,7 @@ def run(
         data='/data/traindata.yaml',
         #         data=ROOT / 'data/coco128.yaml',  # dataset.yaml path
         imgsz=(640, 640),  # inference size (height, width)
-        conf_thres=0.25,  # confidence threshold
+        conf_thres=0.75,  # confidence threshold
         iou_thres=0.45,  # NMS IOU threshold
         max_det=1000,  # maximum detections per image
         device='',  # cuda device, i.e. 0 or 0,1,2,3 or cpu
@@ -271,6 +272,8 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
                     # print(names[int(c)])
                     object_name = names[int(c)]
+                    # print("obj ",object_name)
+
 
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
@@ -286,30 +289,49 @@ def run(
                     if save_crop:
                         save_one_box(xyxy, imc, file=save_dir / 'crops' / names[c] / f'{p.stem}.jpg', BGR=True)
 
-                    if object_name == "Arrow":
+                    if names[int(c)] == "Arrow":
                         arrow_image = im0[:, :, 0]
                         arrow_bbox = arrow_image[int(xyxy[1].item()):int(xyxy[3].item()),
                                      int(xyxy[0].item()):int(xyxy[2].item())]
                         heading = arrow_heading_detection(np.asarray(arrow_bbox))
+                        if (heading == -1):
+                            continue;
                         print("arrow heading is...  ",heading)
-                        object_name+"_"+str(heading)
-                    # print('centre of mass')
-                    centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
-                                      (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
+                        object_name = object_name+"_"+str(heading)
 
-                    o = Sound(centre_of_mass, 4,object_name, True)
-                    frame_curr.add_sign(o)
-                    add_log("sign detected-> " +object_name)
+                        name_a = names[int(c)] +"_"+str(heading)
+
+                        centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
+                                          (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
+                        o = Sound(centre_of_mass, 4, name_a, True)
+                        frame_curr.add_sign(o)
+                    else:
+                        # print("added sign->",names[int(c)])
+                        # print('centre of mass')
+                        centre_of_mass = [(xyxy[0].tolist() + xyxy[2].tolist()) / 2,
+                                          (xyxy[1].tolist() + xyxy[3].tolist()) / 2]
+
+                        o = Sound(centre_of_mass, 4,names[int(c)], True)
+                        frame_curr.add_sign(o)
+                        # add_log("sign detected-> " +object_name)
+
 
             if thread2.is_alive() != True and state.get_state() == "Scan":
                 frame_return = frame_curr.check_frame()
-                if frame_return is not None:
-                    thread2 = threading.Thread(target=sound_action, args=(frame_return ,))
-                    state.threadX = thread2
-                    thread2.start()
-                    sound_played(frame_return.get_name())
+                # to remove the new can play (edit the below two iffs and should run correctly)
+                can_play = check_if_in_all_held()
+                if frame_return is not None and can_play is not None:
+                    if frame_return.get_name() in can_play:
+                        thread2 = threading.Thread(target=sound_action, args=(frame_return ,))
+                        state.threadX = thread2
+                        thread2.start()
+                        sound_played(frame_return.get_name())
+                    else:
+                        print("Not appeared in  frames yet ")
 
             frame_curr = Frame()
+            # handling the mil  second catches
+            add_to_held_frame(frame_curr)
 
             # Stream results
             im0 = annotator.result()
@@ -354,7 +376,7 @@ def run(
 
     # Print results
     t = tuple(x.t / seen * 1E3 for x in dt)  # speeds per image
-    # LOGGER.info(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}' % t)
+    LOGGER.info(f'Speed: %.1fms pre-process, %.1fms inference, %.1fms NMS per image at shape {(1, 3, *imgsz)}' % t)
     if save_txt or save_img:
         s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
         # LOGGER.info(f"Results saved to {colorstr('bold', save_dir)}{s}")

@@ -5,6 +5,7 @@ import time
 from Main.fnd.SoundCode.Buttons.sysState import *
 from Main.fnd.SoundCode.SoundSys.OCR import *
 from Main.fnd.SoundCode.Buttons.ButtionChange import *
+from Main.OCR_PERCEPTION.basic import image_to_text
 
 # helper func
 def set_now():
@@ -14,7 +15,22 @@ def set_now():
     state.stop = False
     return
 
-# class testOCR(unittest.TestCase):
+class testOCR(unittest.TestCase):
+    def test_text_size_1(self):
+        text = image_to_text("test/test_images/size1.jpeg")
+
+        self.assertEqual("OXFORD\n“STREET WI\n\nCITY OF WESTMINSTER\n\n", text)
+
+    def test_font_1(self):
+        text = image_to_text("test/test_images/font1.png")
+
+        self.assertEqual("THE UNIVERSITY\nof EDINBURGH\n\n", text)
+
+    def test_font_2(self):
+        text = image_to_text("test/test_images/font2.jpeg")
+
+        # should really regex it, but no time
+        self.assertEqual("| Wandered Lonely“as) a) Cloud\n\n~William)Wordsworth\n\n", text)
     # def test_speach_OCR(self):
     #     # this should pause after 1.5 seconds of speech then resume after another 1sec
     #     thread_test = threading.Thread(target=set_now, args=())

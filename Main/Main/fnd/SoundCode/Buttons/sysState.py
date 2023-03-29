@@ -2,7 +2,7 @@ import time
 import threading
 import sys
 
-from Main.fnd.SoundCode.Logging import add_log
+from Main.fnd.SoundCode.Logging import add_log, TypeLogs
 from Main.fnd.SoundCode.SoundSys.TextToSpeech import play_msg_cache
 from Main.fnd.SoundCode.Customisation import *
 
@@ -95,12 +95,14 @@ class ThreadingState:
             if self.sysState == "pause":
                 # change to resume mode
                 self.lock.acquire()
+                add_log("Sound Starting To Play AA", TypeLogs.TESTING)
                 play_msg_cache("resuming_scan")
                 self.lock.release()
                 self.sysState = self.histState
             else:
                 self.histState = self.sysState
                 self.lock.acquire()
+                add_log("Sound Starting To Play AA", TypeLogs.TESTING)
                 add_log("activity log-> pause")
                 play_msg_cache('pause')
                 self.lock.release()
@@ -119,11 +121,12 @@ class ThreadingState:
 
                         # for next mode button
                         if xr == next_mode:
-                            print("current state of dist thread is...", )
+                            print("current state of thread is...", )
                             d = xr(self.sysState)
 
                             # so nothing else can happen??
                             self.lock.acquire()
+                            add_log("Sound Starting To Play"+str(d), TypeLogs.TESTING)
                             play_msg_cache(get_audio(d))
                             self.lock.release()
 
@@ -145,7 +148,7 @@ class ThreadingState:
                         return True
 
             print("INVALID COMMAND -> throw error")
-            add_log("activity log->" + self.sysState)
+            add_log("INVALID COMMAND -> "+str(cmd),TypeLogs.TESTING)
             return False
 
     def get_state(self):
