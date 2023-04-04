@@ -54,7 +54,7 @@ def button_thows():
 
 
 def pause_wait_action():
-    save_logs_to_file()
+    #save_logs_to_file()
     while state.get_state() == "pause":
         time.sleep(1)
 

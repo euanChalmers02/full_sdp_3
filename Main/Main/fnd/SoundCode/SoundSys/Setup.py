@@ -3,7 +3,7 @@ import pyaudio
 import cv2
 
 # -- customisable --
-scale_factor = 1
+scale_factor = 2
 incremt = 1
 
 

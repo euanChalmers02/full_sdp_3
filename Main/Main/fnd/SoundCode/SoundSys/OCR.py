@@ -5,6 +5,7 @@ from Main.fnd.SoundCode.Buttons.Singleton import get_instate_of_state
 state = get_instate_of_state()
 
 
+
 class OCR:
 
     # should kill in multithreading if state changed using the onword?
@@ -34,6 +35,7 @@ class OCR:
         #
 
         engine = pyttsx3.init()
+        engine.setProperty('rate',145)
         engine.say(self.text)
         engine.runAndWait()
         print("finsihed")

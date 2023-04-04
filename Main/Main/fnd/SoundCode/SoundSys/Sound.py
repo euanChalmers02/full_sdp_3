@@ -24,7 +24,7 @@ BEEP_SOUND_PATH = ROOT + 'beeps/'
 
 class Sound:
     # setup is currently a class variable
-    setup = Setup(1280, 720, 79, 41)  # this should be cache and passed as an arg??? Not done due to unit tests
+    setup = Setup(640, 640, 53, 41)  # this should be cache and passed as an arg??? Not done due to unit tests
     # TODO: update what the newest camera params are.
 
     def __init__(self, coord, distance, text, beep): # distance float...

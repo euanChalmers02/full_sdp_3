@@ -54,8 +54,8 @@ class Command:
 # All commands
 ALL_COMMANDS = [Command("all", 'AA', 'pause', 'pause'), Command("all", 'AA', 'resuming_scan', 'Scan'),
                 Command("Scan", 'A', '', '', next_mode), Command("Scan+ocr", 'A', '', '', next_mode),
-                Command("dist", 'A', '', '', next_mode), Command("all", 'B', '', '', audio_driver_up),
-                Command("all", 'C', '', '', audio_driver_down)]
+                Command("dist", 'A', '', '', next_mode), Command("all", 'B', '', '', audio_driver_up), Command("all", 'BB', '', '', audio_driver_up),
+                Command("all", 'C', '', '', audio_driver_down),Command("all", 'CC', '', '', audio_driver_down)]
 
 
 # pause
@@ -116,7 +116,7 @@ class ThreadingState:
                     self.histState = self.sysState
                     # should be no change to sys state in imitate commamnds
                     if elt.execute is not None:
-                        print("else triggered")
+                      #  print("else triggered")
                         xr = elt.execute
 
                         # for next mode button

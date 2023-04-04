@@ -158,13 +158,17 @@ def get_audio_level(os_plat):
     if os_plat == "mac":
         stream = os.popen("osascript -e 'get volume settings'")
         output = stream.read()
-        output = output.split(":")[1]
+        outputprint = output.split(":")[1]
         return output.split(',')[0]
 
     elif os_plat == "pi":
         stream = os.popen("amixer get Master")
         output = stream.read()
-        print(output)
+        output = output.split('[')[1]
+        output = output.split('%')[0]
+       # print(output)
+        return output
+
     else:
         print("unknown os")
 
@@ -201,7 +205,7 @@ def audio_driver_up():
 
     if os_plat == "pi":
         curr = get_audio_level(os_plat)
-        print("audio level", curr)
+       # print("audio level", curr)
 
         level = int(curr) + 10
 
@@ -211,12 +215,12 @@ def audio_driver_up():
         elif level > 100:
             level = 100
 
-        print("level = ", level)
+       # print("level = ", level)
         update_level_to(os_plat, level)
 
     elif os_plat == "mac":
         curr = get_audio_level(os_plat)
-        print("audio level", curr)
+       # print("audio level", curr)
 
         level = (int(curr) + 15) // 14
 
@@ -226,14 +230,14 @@ def audio_driver_up():
         elif level > 100:
             level = 100
 
-        print("level = ", level)
+      #  print("level = ", level)
         update_level_to(os_plat, level)
 
 
 def audio_driver_down():
     if os_plat == "pi":
         curr = get_audio_level(os_plat)
-        print("audio level", curr)
+       # print("audio level", curr)
 
         level = int(curr) - 10
 
@@ -248,7 +252,7 @@ def audio_driver_down():
 
     elif os_plat == "mac":
         curr = get_audio_level(os_plat)
-        print("audio level", curr)
+      #  print("audio level", curr)
 
         level = (int(curr) - 15) // 14
 
@@ -258,5 +262,5 @@ def audio_driver_down():
         elif level > 100:
             level = 100
 
-        print("level = ", level)
+       # print("level = ", level)
         update_level_to(os_plat, level)

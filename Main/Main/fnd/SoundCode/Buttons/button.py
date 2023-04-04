@@ -26,66 +26,89 @@ long_press_time = 2
 
 
 def switchOnOff(channel):
-    global start
-    global end
-    if GPIO.input(channel) == 1:
-        start = time.time()
-    if GPIO.input(channel) == 0:
-        end = time.time()
-        elapsed = end - start
-        print(elapsed)
-        if elapsed > long_press_time:
-            add_log("Button AA pressed", TypeLogs.TESTING)
-            print("button AA is long pressed")
-            state.commandInterface('AA')
+    flag= True
+    start = 0
+    while flag:
+        if GPIO.input(channel) == 1:
+            start = time.time()
         else:
-            add_log("Button A pressed", TypeLogs.TESTING)
-            print("button A is not long pressed")
-            state.commandInterface('A')
+            end = time.time()
+            diff = end - start
+            flag = False  
+            print('diff',diff/60)
+            if start == 0:
+                add_log("Button A pressed", TypeLogs.TESTING)
+                state.commandInterface('A')
+            elif diff > 2: 
+                add_log("Button AA pressed", TypeLogs.TESTING)
+                state.commandInterface('AA')
+                
+            else:
+                add_log("Button A pressed", TypeLogs.TESTING)
+                state.commandInterface('A')
+            
+        
+        
+    # start  = time.time()
+    # global end
+    # if GPIO.input(channel) == 1:
+        # start = time.time()
+    # if GPIO.input(channel) == 0:
+        # end = time.time()
+        # elapsed = end - start
+        # print(elapsed)
+        # if elapsed > long_press_time:
+            # add_log("Button AA pressed", TypeLogs.TESTING)
+            # print("button AA is long pressed")
+            # state.commandInterface('AA')
+        # else:
+    add_log("Button A pressed", TypeLogs.TESTING)
+   # print("button A is not long pressed")
+    state.commandInterface('A')
 
 
 def increaseVolume(channel):
-    global start
-    global end
-    if GPIO.input(channel) == 1:
-        start = time.time()
-    if GPIO.input(channel) == 0:
-        end = time.time()
-        elapsed = end - start
-        print(elapsed)
-        if elapsed > long_press_time:
-            add_log("Button BB pressed", TypeLogs.TESTING)
-            print("button BB is long pressed")
-            state.commandInterface('BB')
-        else:
-            add_log("Button B pressed", TypeLogs.TESTING)
-            print("button B is not long pressed")
-            state.commandInterface('B')
+    # start = time.time()
+    # global end
+    # if GPIO.input(channel) == 1:
+        # start = time.time()
+    # if GPIO.input(channel) == 0:
+        # end = time.time()
+        # elapsed = end - start
+        # print(elapsed)
+        # if elapsed > long_press_time:
+            # add_log("Button BB pressed", TypeLogs.TESTING)
+            # print("button BB is long pressed")
+            # state.commandInterface('BB')
+        # else:
+    add_log("Button B pressed", TypeLogs.TESTING)
+   # print("button B is not long pressed")
+    state.commandInterface('B')
 
 
 def decreaseVolume(channel):
-    global start
-    global end
-    if GPIO.input(channel) == 1:
-        start = time.time()
-    if GPIO.input(channel) == 0:
-        end = time.time()
-        elapsed = end - start
-        print(elapsed)
-        if elapsed > long_press_time:
-            print("button CC is long pressed")
-            add_log("Button CC pressed", TypeLogs.TESTING)
-            state.commandInterface('CC')
-        else:
-            add_log("Button C pressed", TypeLogs.TESTING)
-            print("button CC is short pressed")
-            state.commandInterface('C')
+    # start  = time.time()
+    # global end
+    # if GPIO.input(channel) == 1:
+        # start = time.time()
+    # if GPIO.input(channel) == 0:
+        # end = time.time()
+        # elapsed = end - start
+        # print(elapsed)
+        # if elapsed > long_press_time:
+            # print("button CC is long pressed")
+            # add_log("Button CC pressed", TypeLogs.TESTING)
+            # state.commandInterface('CC')
+        # else:
+    add_log("Button C pressed", TypeLogs.TESTING)
+   # print("button CC is short pressed")
+    state.commandInterface('C')
 
 
 def buttons_console():
     print('run')
     # add event detection
-    GPIO.add_event_detect(button1_pin, GPIO.BOTH, callback=switchOnOff, bouncetime=300)
+    GPIO.add_event_detect(button1_pin, GPIO.FALLING, callback=switchOnOff, bouncetime=300)
     GPIO.add_event_detect(button2_pin, GPIO.FALLING, callback=increaseVolume, bouncetime=300)
     GPIO.add_event_detect(button3_pin, GPIO.FALLING, callback=decreaseVolume, bouncetime=300)
     message = input("Press enter to quit\n\n")
